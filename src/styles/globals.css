@@ -1,11 +1,36 @@
 @import "tailwindcss";
 @import './bprogress.css';
+@plugin '@egoist/tailwindcss-icons';
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
-body {
-  @apply bg-gray-50 text-gray-800;
+:root {
+    --calendar-bg: #ebedf0;
+    --calendar-level-1: #9be9a8;
+    --calendar-level-2: #40c463;
+    --calendar-level-3: #30a14e;
+    --calendar-level-4: #216e39;
 }
 
-[data-theme='dark'] body{
-    @apply bg-gray-900 text-gray-200;
+body {
+    @apply bg-gray-50 text-gray-800;
+}
+
+[data-theme='dark'] body {
+    @apply bg-gray-950 text-gray-200;
+
+    --calendar-bg: #161b22;
+    --calendar-level-1: #0e4429;
+    --calendar-level-2: #006d32;
+    --calendar-level-3: #26a641;
+    --calendar-level-4: #39d353;
+}
+
+/* Switch the calendar to start scrolled to the right (i.e. showing the most recent dates */
+.react-activity-calendar__scroll-container {
+    direction: rtl;
+}
+
+/* Reverts scroll direction for all children of the scroll container */
+.react-activity-calendar__scroll-container * {
+    direction: initial;
 }
