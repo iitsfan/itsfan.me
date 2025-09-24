@@ -1,6 +1,6 @@
 import { Source_Sans_3 } from 'next/font/google'
-import Footer from '@/components/Layous/Footer'
-import Header from '@/components/Layous/Header'
+import Footer from '@/components/layouts/Footer'
+import Header from '@/components/layouts/Header'
 import Providers from './providers'
 
 const sourceSans = Source_Sans_3({
