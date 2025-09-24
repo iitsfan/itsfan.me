@@ -1,6 +1,7 @@
 import { Source_Sans_3 } from 'next/font/google'
 import Footer from '@/components/layouts/Footer'
 import Header from '@/components/layouts/Header'
+import { cn } from '@/lib/utils'
 import Providers from './providers'
 
 const sourceSans = Source_Sans_3({
@@ -15,7 +16,11 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" suppressHydrationWarning>
-			<body className={`${sourceSans.className} flex h-screen w-screen flex-col scroll-smooth antialiased`}>
+			<body className={cn(
+				sourceSans.className,
+				'flex h-screen w-screen flex-col scroll-smooth antialiased',
+			)}
+			>
 				<Providers>
 					<Header />
 					<main className="mt-18 flex w-full flex-1 flex-col items-center px-4 py-8 sm:mt-24 sm:p-6">

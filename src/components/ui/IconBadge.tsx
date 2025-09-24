@@ -1,3 +1,5 @@
+import { cn } from '@/lib/utils'
+
 type IconBadgeVariant = 'tech' | 'social'
 
 interface IconBadgeProps {
@@ -18,15 +20,11 @@ export default function IconBadge({
 	text,
 	variant,
 	href,
-	className = '',
+	className,
 }: IconBadgeProps) {
-	const baseClass = 'flex items-center justify-center gap-1 font-semibold text-sm'
-	const variantClass = variantStyles[variant]
-	const combinedClass = `${baseClass} ${variantClass} ${className}`
-
 	const content = (
 		<>
-			<i className={`${icon} text-base`} />
+			<i className={cn(icon, 'text-base')} />
 			{text}
 		</>
 	)
@@ -37,7 +35,11 @@ export default function IconBadge({
 				href={href}
 				target="_blank"
 				rel="noopener noreferrer"
-				className={`${combinedClass}`}
+				className={cn(
+					'flex items-center justify-center gap-1 text-sm font-semibold',
+					variantStyles[variant],
+					className,
+				)}
 			>
 				{content}
 			</a>
@@ -45,7 +47,12 @@ export default function IconBadge({
 	}
 
 	return (
-		<span className={combinedClass}>
+		<span className={cn(
+			'flex items-center justify-center gap-1 text-sm font-semibold',
+			variantStyles[variant],
+			className,
+		)}
+		>
 			{content}
 		</span>
 	)
