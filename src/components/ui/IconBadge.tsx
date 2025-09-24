@@ -1,0 +1,52 @@
+type IconBadgeVariant = 'tech' | 'social'
+
+interface IconBadgeProps {
+	icon: string
+	text: string
+	variant: IconBadgeVariant
+	href?: string
+	className?: string
+}
+
+const variantStyles: Record<IconBadgeVariant, string> = {
+	tech: 'rounded-lg border border-gray-700 bg-gray-900 px-2 py-1 select-none',
+	social: 'border-b-2 border-dashed border-blue-200 cursor-pointer transition-color duration-300 hover:border-blue-400',
+}
+
+export default function IconBadge({
+	icon,
+	text,
+	variant,
+	href,
+	className = '',
+}: IconBadgeProps) {
+	const baseClass = 'flex items-center justify-center gap-1 font-semibold text-sm'
+	const variantClass = variantStyles[variant]
+	const combinedClass = `${baseClass} ${variantClass} ${className}`
+
+	const content = (
+		<>
+			<i className={`${icon} text-base`} />
+			{text}
+		</>
+	)
+
+	if (href) {
+		return (
+			<a
+				href={href}
+				target="_blank"
+				rel="noopener noreferrer"
+				className={`${combinedClass}`}
+			>
+				{content}
+			</a>
+		)
+	}
+
+	return (
+		<span className={combinedClass}>
+			{content}
+		</span>
+	)
+}
