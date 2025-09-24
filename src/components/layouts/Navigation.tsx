@@ -5,7 +5,7 @@ function NavigationItem(props: ComponentProps<typeof Link>) {
 	return (
 		<Link
 			{...props}
-			className="inline-flex cursor-pointer items-center justify-center rounded-sm px-2 py-1 text-lg font-semibold text-gray-700 transition-colors duration-300 hover:bg-gray-300 sm:ml-2 sm:py-2 sm:first:ml-0 dark:text-gray-200 dark:hover:bg-gray-900"
+			className="inline-flex cursor-pointer items-center justify-center rounded-sm px-2 py-1 text-lg font-semibold transition-colors duration-300 hover:bg-gray-200/50 sm:ml-2 sm:py-2 sm:first:ml-0 dark:hover:bg-gray-900"
 		>
 			{props.children}
 		</Link>

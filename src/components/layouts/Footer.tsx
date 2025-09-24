@@ -13,7 +13,7 @@ export default function Footer() {
 
 	if (!mounted) {
 		return (
-			<footer className="mb-2 flex w-full items-center justify-center">
+			<footer className="mb-2 flex w-full items-center justify-center px-4 sm:px-0">
 				<div className="flex max-w-xl flex-1 items-center gap-x-2">
 					<p className="block font-bold">
 						© 2025 – FAN
@@ -28,7 +28,7 @@ export default function Footer() {
 	}
 
 	return (
-		<footer className="mb-2 flex w-full items-center justify-center">
+		<footer className="mb-2 flex w-full items-center justify-center px-4 sm:px-0">
 			<div className="flex max-w-xl flex-1 items-center gap-x-2">
 				<p className="block font-bold">
 					© 2025 – FAN

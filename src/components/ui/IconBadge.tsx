@@ -9,7 +9,7 @@ interface IconBadgeProps {
 }
 
 const variantStyles: Record<IconBadgeVariant, string> = {
-	tech: 'rounded-lg border border-gray-700 bg-gray-900 px-2 py-1 select-none',
+	tech: 'rounded-lg border border-gray-300 bg-gray-100 px-2 py-1 select-none dark:bg-gray-900 dark:border-gray-700',
 	social: 'border-b-2 border-dashed border-blue-200 cursor-pointer transition-color duration-300 hover:border-blue-400',
 }
 

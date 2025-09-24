@@ -18,7 +18,7 @@ export default function Home() {
 						<h1 className="text-4xl font-bold">
 							Hi, I&apos;m FAN 👋
 						</h1>
-						<p className="text-xl leading-relaxed text-gray-600 dark:text-gray-300">
+						<p className="text-xl leading-relaxed">
 							I&apos;m striving to be a great front-end developer...
 						</p>
 					</div>
