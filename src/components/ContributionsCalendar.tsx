@@ -2,8 +2,9 @@
 
 import type { Props as ActivityCalendarProps, ThemeInput } from 'react-activity-calendar'
 import type { Activity, ContributionsCalendarProps } from '@/types'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ActivityCalendar } from 'react-activity-calendar'
+import { Tooltip } from 'react-tooltip'
 
 export function ContributionsCalendar({ username }: ContributionsCalendarProps) {
 	const [data, setData] = useState<Activity[]>([])
@@ -67,7 +68,6 @@ export function ContributionsCalendar({ username }: ContributionsCalendarProps) 
 		],
 	}
 
-	// TODO: add tooltip
 	const activityCalendarProps: ActivityCalendarProps = {
 		data,
 		loading,
@@ -76,9 +76,17 @@ export function ContributionsCalendar({ username }: ContributionsCalendarProps) 
 		labels: {
 			totalCount: labelInfo,
 		},
+		renderBlock: (block, activity) =>
+			React.cloneElement(block, {
+				'data-tooltip-id': 'calendar-tooltip',
+				'data-tooltip-html': `${activity.count} activities on ${activity.date}`,
+			}),
 	}
 
 	return (
-		<ActivityCalendar {...activityCalendarProps} />
+		<>
+			<ActivityCalendar {...activityCalendarProps} />
+			<Tooltip id="calendar-tooltip" />
+		</>
 	)
 }
