@@ -84,9 +84,9 @@ export function ContributionsCalendar({ username }: ContributionsCalendarProps) 
 	}
 
 	return (
-		<>
+		<div className="isolate">
 			<ActivityCalendar {...activityCalendarProps} />
 			<Tooltip id="calendar-tooltip" />
-		</>
+		</div>
 	)
 }
