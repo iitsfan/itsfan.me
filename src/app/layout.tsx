@@ -18,7 +18,7 @@ export default function RootLayout({
 			<body className={`${sourceSans.className} flex h-screen w-screen flex-col scroll-smooth antialiased`}>
 				<Providers>
 					<Header />
-					<main className="mt-24 flex w-full flex-1 flex-col items-center px-4 py-8 sm:p-6">
+					<main className="mt-18 flex w-full flex-1 flex-col items-center px-4 py-8 sm:mt-24 sm:p-6">
 						{children}
 					</main>
 					<Footer />
