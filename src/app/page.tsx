@@ -1,22 +1,6 @@
 import Image from 'next/image'
 import { ContributionsCalendar } from '@/components/ContributionsCalendar'
-function TechStackIcon({ icon, text }: { icon: string, text: string }) {
-	return (
-		<span className="flex items-center justify-center gap-1 rounded-lg border border-gray-700 bg-gray-900 px-2 py-1 text-sm font-semibold">
-			<i className={`${icon} text-base`} />
-			{text}
-		</span>
-	)
-}
-
-function SocialIcon({ icon, text }: { icon: string, text: string }) {
-	return (
-		<span className="ftext-blue-600 flex items-center justify-center gap-1 border-b-2 border-dashed border-blue-200 font-semibold">
-			<i className={`${icon} text-base`} />
-			{text}
-		</span>
-	)
-}
+import IconBadge from '@/components/ui/IconBadge'
 
 export default function Home() {
 	return (
@@ -45,17 +29,17 @@ export default function Home() {
 						Tech Stack
 					</h2>
 					<div className="flex flex-wrap gap-2">
-						<TechStackIcon icon="i-devicon-html5" text="HTML" />
-						<TechStackIcon icon="i-devicon-css3" text="CSS" />
-						<TechStackIcon icon="i-devicon-javascript" text="JavaScript" />
-						<TechStackIcon icon="i-devicon-typescript" text="TypeScript" />
-						<TechStackIcon icon="i-devicon-react" text="React" />
-						<TechStackIcon icon="i-devicon-nextjs" text="Next.js" />
-						<TechStackIcon icon="i-devicon-tailwindcss" text="TailwindCSS" />
-						<TechStackIcon icon="i-devicon-vuejs" text="Vue" />
-						<TechStackIcon icon="i-devicon-nuxt" text="Nuxt" />
-						<TechStackIcon icon="i-devicon-vitejs" text="Vite" />
-						<TechStackIcon icon="i-devicon-nodejs" text="Node" />
+						<IconBadge variant="tech" icon="i-devicon-html5" text="HTML" />
+						<IconBadge variant="tech" icon="i-devicon-css3" text="CSS" />
+						<IconBadge variant="tech" icon="i-devicon-javascript" text="JavaScript" />
+						<IconBadge variant="tech" icon="i-devicon-typescript" text="TypeScript" />
+						<IconBadge variant="tech" icon="i-devicon-react" text="React" />
+						<IconBadge variant="tech" icon="i-devicon-nextjs" text="Next.js" />
+						<IconBadge variant="tech" icon="i-devicon-tailwindcss" text="TailwindCSS" />
+						<IconBadge variant="tech" icon="i-devicon-vuejs" text="Vue" />
+						<IconBadge variant="tech" icon="i-devicon-nuxt" text="Nuxt" />
+						<IconBadge variant="tech" icon="i-devicon-vitejs" text="Vite" />
+						<IconBadge variant="tech" icon="i-devicon-nodejs" text="Node" />
 					</div>
 				</div>
 				<div className="space-y-4">
@@ -63,10 +47,30 @@ export default function Home() {
 						Get in Touch
 					</h2>
 					<div className="flex flex-wrap gap-3">
-						<SocialIcon icon="i-simple-icons-github" text="GitHub" />
-						<SocialIcon icon="i-simple-icons-bilibili" text="Bilibili" />
-						<SocialIcon icon="i-simple-icons-steam" text="Steam" />
-						<SocialIcon icon="i-simple-icons-maildotru" text="Mail" />
+						<IconBadge
+							variant="social"
+							icon="i-simple-icons-github"
+							text="GitHub"
+							href="https://github.com/iitsfan"
+						/>
+						<IconBadge
+							variant="social"
+							icon="i-simple-icons-bilibili"
+							text="Bilibili"
+							href="https://space.bilibili.com/11738804"
+						/>
+						<IconBadge
+							variant="social"
+							icon="i-simple-icons-steam"
+							text="Steam"
+							href="https://steamcommunity.com/profiles/76561198975984345"
+						/>
+						<IconBadge
+							variant="social"
+							icon="i-simple-icons-maildotru"
+							text="Mail"
+							href="mailto:i@itsfan.me"
+						/>
 					</div>
 				</div>
 				<div className="space-y-4">
