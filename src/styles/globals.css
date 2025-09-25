@@ -4,6 +4,13 @@
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 :root {
+    /* main */
+    --bg-primary: theme('colors.gray.100');
+    --text-primary: theme('colors.gray.800');
+    --text-secondary: theme('colors.gray.700');
+    --text-tertiary: theme('colors.gray.500');
+    --text-quaternary: theme('colors.gray.400');
+    /* react-activity-calendar */
     --calendar-bg: #ebedf0;
     --calendar-level-1: #9be9a8;
     --calendar-level-2: #40c463;
@@ -11,18 +18,24 @@
     --calendar-level-4: #216e39;
 }
 
-body {
-    @apply bg-gray-50 text-gray-800;
-}
-
-[data-theme='dark'] body {
-    @apply bg-gray-950 text-gray-200;
-
+[data-theme='dark'] {
+    /* main */
+    --bg-primary: theme('colors.gray.950');
+    --text-primary: theme('colors.gray.200');
+    --text-secondary: theme('colors.gray.300');
+    --text-tertiary: theme('colors.gray.400');
+    --text-quaternary: theme('colors.gray.500');
+    /* react-activity-calendar */
     --calendar-bg: #161b22;
     --calendar-level-1: #0e4429;
     --calendar-level-2: #006d32;
     --calendar-level-3: #26a641;
     --calendar-level-4: #39d353;
+}
+
+body {
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
 }
 
 /* Switch the calendar to start scrolled to the right (i.e. showing the most recent dates */

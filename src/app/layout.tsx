@@ -23,8 +23,10 @@ export default function RootLayout({
 			>
 				<Providers>
 					<Header />
-					<main className="mt-18 flex w-full flex-1 flex-col items-center px-4 py-8 sm:mt-24 sm:p-6">
-						{children}
+					<main className="mt-14 flex w-full flex-1 flex-col items-center px-4 py-8 sm:mt-24 sm:p-6">
+						<div className="mx-auto w-full max-w-xl">
+							{children}
+						</div>
 					</main>
 					<Footer />
 				</Providers>

@@ -19,7 +19,7 @@ export default function Header() {
 		<>
 			<div className={cn(
 				'fixed top-0 right-0 left-0 z-50 w-screen transform-gpu',
-				'bg-white/40 px-4 backdrop-blur-sm backdrop-saturate-125 sm:px-0',
+				'bg-white/40 px-4 py-1 backdrop-blur-sm backdrop-saturate-125 sm:px-0 sm:py-0',
 				'dark:bg-gray-900/20',
 			)}
 			>
