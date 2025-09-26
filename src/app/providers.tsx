@@ -2,7 +2,7 @@
 
 import { ProgressProvider } from '@bprogress/next/app'
 import { ThemeProvider } from 'next-themes'
-import '@/styles/globals.css'
+import '@/styles/globals.scss'
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
 	return (
