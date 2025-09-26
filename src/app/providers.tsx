@@ -1,7 +1,6 @@
 'use client'
 
 import { ProgressProvider } from '@bprogress/next/app'
-import { ReactLenis } from 'lenis/react'
 import { ThemeProvider } from 'next-themes'
 import '@/styles/globals.scss'
 
@@ -17,7 +16,6 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
 				disableStyle
 				shallowRouting
 			>
-				<ReactLenis root />
 				{children}
 			</ProgressProvider>
 		</ThemeProvider>
