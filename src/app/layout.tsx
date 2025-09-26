@@ -18,7 +18,7 @@ export default function RootLayout({
 		<html lang="en" suppressHydrationWarning>
 			<body className={cn(
 				sourceSans.className,
-				'flex h-screen w-screen flex-col scroll-smooth antialiased',
+				'flex h-screen w-screen flex-col antialiased',
 			)}
 			>
 				<Providers>

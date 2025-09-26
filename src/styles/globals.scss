@@ -36,9 +36,10 @@
     --calendar-level-4: #39d353;
 }
 
-body {
+html,body {
     color: var(--text-primary);
     background-color: var(--bg-primary);
+    scroll-behavior: smooth;
 }
 
 // React Activity Calendar styles
