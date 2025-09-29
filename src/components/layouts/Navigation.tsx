@@ -12,7 +12,7 @@ function NavigationItem(props: ComponentProps<typeof Link> & { onClick?: () => v
 		<Link
 			{...props}
 			className={cn(
-				'block cursor-pointer rounded-sm px-2 py-1 text-lg font-semibold',
+				'block cursor-pointer rounded-sm px-2 py-1 font-semibold',
 				'transition-colors duration-300',
 				'hover:bg-gray-200/40 dark:hover:bg-gray-900/40',
 				'sm:ml-2 sm:py-2 sm:first:ml-0',

@@ -26,7 +26,7 @@ export default function Header() {
 				<div className="m-auto flex max-w-xl flex-col justify-center py-3 sm:flex-row sm:items-center">
 					<div className="flex flex-grow items-center justify-between">
 						<div className="flex items-center select-none">
-							<h1 className="text-xl font-bold">@FAN</h1>
+							<h1 className="text-lg font-bold">@FAN</h1>
 						</div>
 
 						<button
