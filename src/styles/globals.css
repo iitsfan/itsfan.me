@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import './bprogress.css';
+@import './markdown.css';
 @plugin '@egoist/tailwindcss-icons';
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 

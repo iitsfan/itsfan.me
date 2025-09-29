@@ -1,0 +1,186 @@
+.markdown {
+    @apply text-sm sm:text-base break-words font-medium text-(--text-secondary);
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply my-5 font-bold relative scroll-mt-14 sm:scroll-mt-22 text-(--text-primary)/90;
+
+        a.anchor {
+            @apply relative block w-full cursor-pointer text-inherit no-underline;
+
+            &::after {
+                @apply absolute top-0 bottom-0 w-6 -left-4 content-[''];
+            }
+
+            &::before {
+                @apply absolute font-bold opacity-0 transition-opacity duration-300 cursor-pointer -left-4 text-(--text-tertiary) content-['#'];
+            }
+
+            &:hover {
+                @apply text-inherit no-underline;
+            }
+        }
+
+        &:hover a.anchor::before {
+            @apply opacity-50;
+        }
+    }
+
+    h1,
+    h2 {
+        @apply text-xl sm:text-2xl;
+    }
+
+    h3,
+    h4 {
+        @apply text-lg sm:text-xl;
+    }
+
+    hr {
+        @apply my-4 mt-8 border-(--text-quaternary);
+    }
+
+    p,
+    li {
+        @apply my-3;
+    }
+
+    ul:not(.contains-task-list) {
+        @apply my-4 pl-6 space-y-2;
+
+        li:not(.task-list-item) {
+            @apply relative;
+
+            &::before {
+                @apply absolute -left-4 top-0 text-(--text-tertiary) content-['•'];
+            }
+        }
+
+        ul:not(.contains-task-list) {
+            @apply my-2 pl-4;
+
+            li:not(.task-list-item)::before {
+                @apply content-['◦'];
+            }
+
+            ul li:not(.task-list-item)::before {
+                @apply content-['▪'];
+            }
+        }
+    }
+
+    .task-list-item {
+        @apply list-none;
+
+        input[type="checkbox"] {
+            @apply mr-2;
+        }
+    }
+
+    ol {
+        @apply my-4 pl-6 space-y-2 list-decimal;
+
+        li {
+            @apply relative;
+        }
+
+        ol {
+            @apply my-2 pl-4 list-decimal;
+        }
+    }
+
+    :not(h1, h2, h3, h4, h5, h6, ul, sup)>a {
+        @apply text-blue-600 transition cursor-pointer duration-300 dark:text-blue-300 underline underline-offset-4 decoration-solid decoration-gray-400 dark:decoration-gray-600 dark:hover:decoration-blue-400 hover:decoration-blue-500;
+    }
+
+    :not(pre)>code {
+        @apply inline-flex items-center bg-gray-200 dark:bg-gray-900 mx-1 px-2 py-0.5 rounded whitespace-pre transition-colors duration-300 text-sm font-medium text-(--text-secondary);
+
+        a {
+            @apply no-underline;
+        }
+    }
+
+    kbd {
+        @apply inline-flex items-center bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 mx-1 px-2 py-0.5 rounded shadow-sm text-xs font-mono font-semibold text-(--text-primary) transition-colors duration-300;
+    }
+
+    pre {
+        @apply bg-gray-200/30 dark:bg-gray-700/40 border border-gray-200 dark:border-gray-700 rounded-lg overflow-auto my-4 p-4;
+
+        &::-webkit-scrollbar-track,
+        &::-webkit-scrollbar-corner {
+            @apply rounded-full bg-gray-700;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            @apply rounded-full bg-gray-500;
+        }
+    }
+
+    blockquote {
+        @apply bg-gray-200/30 border-gray-300/80 border-l-7 px-3 py-1 my-3 rounded-l-sm rounded-r-lg dark:bg-gray-900 dark:border-gray-700;
+    }
+
+    img,
+    video {
+        @apply mx-auto mt-8 block rounded;
+    }
+
+    figure[data-rehype-pretty-code-figure] {
+        @apply my-6 relative;
+
+        [data-rehype-pretty-code-title] {
+            @apply px-4 py-2 text-sm font-semibold bg-gray-200 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-t-lg border-b-0 m-0 text-(--text-primary);
+        }
+
+        &:has([data-rehype-pretty-code-title]) pre {
+            @apply rounded-t-none border-t-0 mt-0;
+        }
+
+        pre {
+            @apply rounded-lg overflow-x-auto m-0 px-0;
+        }
+
+        code {
+            @apply text-sm font-mono grid;
+
+            span[data-line] {
+                @apply px-4 py-0.5 border-l-2 border-l-transparent;
+
+                &.highlighted {
+                    @apply bg-blue-300/10 border-l-blue-500/60 dark:bg-blue-600/10 dark:border-l-blue-400/70 border-l-2;
+                }
+
+                &.diff.add {
+                    @apply bg-green-50/50 border-l-green-500/40 dark:bg-green-900/20 border-l-2;
+
+                    &::before {
+                        @apply text-green-600 dark:text-green-400 content-['+'];
+                    }
+                }
+
+                &.diff.remove {
+                    @apply bg-red-50/50 border-l-red-500/40 dark:bg-red-900/20 border-l-2;
+
+                    &::before {
+                        @apply text-red-600 dark:text-red-400 content-['-'];
+                    }
+                }
+            }
+        }
+    }
+
+
+    code span {
+        @apply text-(--shiki-light);
+    }
+}
+
+[data-theme='dark'] .markdown code span {
+    @apply text-(--shiki-dark);
+}
