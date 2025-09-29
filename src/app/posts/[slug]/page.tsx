@@ -2,6 +2,7 @@ import { posts } from '#site/content'
 import dayjs from 'dayjs'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { MarkdownContent } from '@/components/MarkdownContent'
 interface PostPageProps {
 	params: Promise<{
 		slug: string
@@ -53,10 +54,7 @@ export default async function PostPage({ params }: PostPageProps) {
 					</time>
 				</section>
 
-				<div
-					className="markdown"
-					dangerouslySetInnerHTML={{ __html: post.content }}
-				/>
+				<MarkdownContent content={post.content} className="markdown" />
 
 			</article>
 		</>
