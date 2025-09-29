@@ -35,18 +35,38 @@ export default defineConfig({
 				})
 				.transform(data => ({ ...data, permalink: `/${data.slug}` })),
 		},
+		friends: {
+			name: 'friends',
+			pattern: 'friends/index.md',
+			schema: s
+				.object({
+					title: s.string(),
+					date: s.isodate(),
+					links: s.array(
+						s.object({
+							title: s.string(),
+							description: s.string(),
+							website: s.string().optional(),
+							image: s.string(),
+						}),
+					),
+				}),
+		},
 	},
 	markdown: {
 		remarkPlugins: [remarkGfm],
 		rehypePlugins: [
 			rehypeSlug,
-			[rehypeAutolinkHeadings, { properties: { className: ['anchor'] } }],
+			[rehypeAutolinkHeadings, {
+				properties: { className: ['anchor'] },
+				behavior: 'wrap',
+			}],
 			[
 				rehypePrettyCode,
 				{
 					theme: {
-						dark: 'material-theme-darker',
-						light: 'material-theme-lighter',
+						dark: 'one-dark-pro',
+						light: 'one-light',
 					},
 					keepBackground: false,
 					transformers: [
