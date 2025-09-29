@@ -1,12 +1,24 @@
-import { Source_Sans_3 } from 'next/font/google'
+import { JetBrains_Mono, Noto_Sans, Noto_Sans_SC } from 'next/font/google'
 import Footer from '@/components/layouts/Footer'
 import Header from '@/components/layouts/Header'
 import { cn } from '@/lib/utils'
 import Providers from './providers'
 
-const sourceSans = Source_Sans_3({
+const cascadiaCode = JetBrains_Mono({
+	variable: '--font-mono',
 	subsets: ['latin'],
-	display: 'swap',
+})
+
+const notoSans = Noto_Sans({
+	variable: '--font-sans',
+	subsets: ['latin'],
+	weight: ['100', '300', '400', '500', '600', '700', '800', '900'],
+})
+
+const notoSansSC = Noto_Sans_SC({
+	variable: '--font-sans-sc',
+	subsets: ['latin'],
+	weight: ['100', '300', '400', '500', '600', '700', '800', '900'],
 })
 
 export default function RootLayout({
@@ -17,7 +29,9 @@ export default function RootLayout({
 	return (
 		<html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
 			<body className={cn(
-				sourceSans.className,
+				notoSans.variable,
+				notoSansSC.variable,
+				cascadiaCode.variable,
 				'flex h-screen w-screen flex-col antialiased',
 			)}
 			>

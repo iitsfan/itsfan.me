@@ -1,18 +1,17 @@
-@use "tailwindcss";
-@use './bprogress.scss';
-@use './markdown.scss';
+@import "tailwindcss";
+@import './bprogress.css';
 @plugin '@egoist/tailwindcss-icons';
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 :root {
-    // Main theme colors
+    /* Main theme colors */
     --bg-primary: theme('colors.gray.100');
     --text-primary: theme('colors.gray.800');
     --text-secondary: theme('colors.gray.700');
     --text-tertiary: theme('colors.gray.500');
     --text-quaternary: theme('colors.gray.400');
 
-    // React activity calendar colors
+    /* React activity calendar colors */
     --calendar-bg: #ebedf0;
     --calendar-level-1: #9be9a8;
     --calendar-level-2: #40c463;
@@ -21,14 +20,14 @@
 }
 
 [data-theme='dark'] {
-    // Main theme colors
+    /* Main theme colors */
     --bg-primary: theme('colors.gray.950');
     --text-primary: theme('colors.gray.200');
     --text-secondary: theme('colors.gray.300');
     --text-tertiary: theme('colors.gray.400');
     --text-quaternary: theme('colors.gray.500');
 
-    // React activity calendar colors
+    /* React activity calendar colors */
     --calendar-bg: #161b22;
     --calendar-level-1: #0e4429;
     --calendar-level-2: #006d32;
@@ -37,17 +36,18 @@
 }
 
 html,body {
+    font-family: var(--font-sans), var(--font-sans-sc), ui-sans-serif, system-ui, sans-serif;
     color: var(--text-primary);
     background-color: var(--bg-primary);
     scroll-behavior: smooth;
 }
 
-// React Activity Calendar styles
+/* React Activity Calendar styles */
 .react-activity-calendar__scroll-container {
-    // Switch the calendar to start scrolled to the right (i.e. showing the most recent dates)
+    /* Switch the calendar to start scrolled to the right (i.e. showing the most recent dates) */
     direction: rtl;
 
-    // Reverts scroll direction for all children of the scroll container
+    /* Reverts scroll direction for all children of the scroll container */
     * {
         direction: initial;
     }
