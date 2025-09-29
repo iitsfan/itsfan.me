@@ -2,6 +2,7 @@ import { posts } from '#site/content'
 import dayjs from 'dayjs'
 import Link from 'next/link'
 import React from 'react'
+import PageTitle from '@/components/layouts/pageTitle'
 
 export default function Posts() {
 	const sortedPosts = posts.sort((a, b) =>
@@ -21,12 +22,7 @@ export default function Posts() {
 
 	return (
 		<>
-			<div>
-				<h2 className="flex-inline items-center text-2xl font-bold text-(--text-primary) sm:text-3xl">
-					All Posts
-				</h2>
-				<hr className="mt-4 h-0.5 border-gray-500 bg-gray-500 opacity-20 dark:border-gray-100 dark:bg-gray-100" />
-			</div>
+			<PageTitle title="📋 Posts" />
 
 			<div className="space-y-8">
 				{years.map(year => (
