@@ -9,6 +9,7 @@ import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeSlug from 'rehype-slug'
 import remarkGfm from 'remark-gfm'
 import { defineConfig, s } from 'velite'
+import { transformerCopyButton } from '@/lib/transformerCopyButton'
 
 export default defineConfig({
 	root: 'content',
@@ -74,6 +75,7 @@ export default defineConfig({
 						transformerNotationHighlight(),
 						transformerNotationFocus(),
 						transformerMetaHighlight(),
+						transformerCopyButton(),
 					],
 				},
 			],
