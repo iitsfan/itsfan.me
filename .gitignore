@@ -42,3 +42,6 @@ next-env.d.ts
 
 # velite
 .velite
+
+# prisma
+/src/generated/prisma

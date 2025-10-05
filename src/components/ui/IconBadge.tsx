@@ -1,9 +1,9 @@
 import { cn } from '@/lib/utils'
 
-type IconBadgeVariant = 'tech' | 'social'
+type IconBadgeVariant = 'tech' | 'social' | 'moment'
 
 interface IconBadgeProps {
-	icon: string
+	icon?: string
 	text: string
 	variant: IconBadgeVariant
 	href?: string
@@ -13,6 +13,7 @@ interface IconBadgeProps {
 const variantStyles: Record<IconBadgeVariant, string> = {
 	tech: 'rounded-lg border border-gray-300 bg-gray-100 px-2 py-1 select-none dark:bg-gray-900 dark:border-gray-700',
 	social: 'border-b-2 border-dashed border-blue-200 cursor-pointer transition-color duration-300 hover:border-blue-400',
+	moment: 'dark:text-blue-400 text-blue-600',
 }
 
 export default function IconBadge({
@@ -24,7 +25,7 @@ export default function IconBadge({
 }: IconBadgeProps) {
 	const content = (
 		<>
-			<i className={cn(icon, 'text-base')} />
+			{icon ? <i className={cn(icon, 'text-base')} /> : null}
 			{text}
 		</>
 	)
