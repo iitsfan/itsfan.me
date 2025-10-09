@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
 				protocol: 'https',
 				hostname: 's2.loli.net',
 			},
+			{
+				protocol: 'https',
+				hostname: 'imgs.itsfan.me',
+			},
 		],
 	},
 }
