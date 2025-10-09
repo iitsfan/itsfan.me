@@ -10,12 +10,15 @@
 		"velite": "velite"
 	},
 	"dependencies": {
+		"@aws-sdk/client-s3": "^3.744.0",
 		"@bprogress/next": "^3.2.12",
+		"@grammyjs/conversations": "^2.1.0",
 		"@itsfan/eslint-config": "^1.0.4",
 		"@prisma/adapter-d1": "^6.16.3",
 		"@prisma/client": "^6.16.3",
 		"dayjs": "^1.11.18",
 		"dotenv": "^17.2.3",
+		"grammy": "^1.38.3",
 		"medium-zoom": "^1.1.0",
 		"next": "15.5.3",
 		"next-themes": "^0.4.6",
@@ -27,7 +30,6 @@
 		"rehype-pretty-code": "^0.14.1",
 		"rehype-slug": "^6.0.0",
 		"remark-gfm": "^4.0.1",
-		"telegraf": "^4.16.3",
 		"velite": "^0.3.0",
 		"zod": "^4.1.11"
 	},

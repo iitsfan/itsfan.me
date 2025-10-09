@@ -1,0 +1,170 @@
+import type { Conversation } from '@grammyjs/conversations'
+import type { BotContext } from '@/telegram/shared'
+import { InlineKeyboard } from 'grammy'
+import { createMomentActionsKeyboard, ERROR_MESSAGES, formatMomentDetails, MOMENT_LIMITS, parseTagsInput, saveTelegramImageToR2 } from '@/telegram/shared'
+
+export async function createMomentConversation(
+	conversation: Conversation<BotContext, BotContext>,
+	ctx: BotContext,
+) {
+	await ctx.reply(
+		[
+			'Create a new moment.',
+			`Send the content (up to ${MOMENT_LIMITS.MAX_CONTENT_LENGTH} characters).`,
+			'Use /cancel to abort.',
+		].join('\n'),
+	)
+
+	const contentMessage = await conversation.wait()
+
+	if (contentMessage.message?.text === '/cancel') {
+		await ctx.reply('Creation cancelled.')
+		return
+	}
+
+	const content = contentMessage.message?.text
+
+	if (!content || content.trim().length === 0) {
+		await ctx.reply(ERROR_MESSAGES.EMPTY_CONTENT)
+		return
+	}
+
+	if (content.length > MOMENT_LIMITS.MAX_CONTENT_LENGTH) {
+		await ctx.reply(ERROR_MESSAGES.CONTENT_TOO_LONG)
+		return
+	}
+
+	const images: string[] = []
+
+	await ctx.reply(
+		[
+			'Add images (optional).',
+			`Send photos, up to ${MOMENT_LIMITS.MAX_IMAGES}.`,
+			'Use /done when finished or /skip to continue without images.',
+			'Use /cancel to abort.',
+		].join('\n'),
+	)
+
+	while (images.length < MOMENT_LIMITS.MAX_IMAGES) {
+		const imageMessage = await conversation.wait()
+
+		if (imageMessage.message?.text === '/skip' || imageMessage.message?.text === '/done') {
+			break
+		}
+
+		if (imageMessage.message?.text === '/cancel') {
+			await ctx.reply('Creation cancelled.')
+			return
+		}
+
+		if (imageMessage.message?.photo) {
+			const photo = imageMessage.message.photo[imageMessage.message.photo.length - 1]
+			try {
+				const imageUrl = await saveTelegramImageToR2(ctx, photo)
+				images.push(imageUrl)
+
+				await ctx.reply(
+					`Image added (${images.length}/${MOMENT_LIMITS.MAX_IMAGES}). Send more, /done to finish, or /skip to continue without more images.`,
+				)
+			}
+			catch (error) {
+				console.error('Failed to store image in R2:', error)
+				await ctx.reply('Failed to process the image. Please try again.')
+			}
+		}
+		else {
+			await ctx.reply('Send a photo, use /done when finished, or /skip to continue without images.')
+		}
+	}
+
+	if (images.length > 0) {
+		await ctx.reply(`Added ${images.length} image(s).`)
+	}
+
+	await ctx.reply(
+		[
+			'Add tags (optional).',
+			`Send tags separated by spaces. Maximum ${MOMENT_LIMITS.MAX_TAGS} tags.`,
+			'Use /skip to continue without tags or /cancel to abort.',
+		].join('\n'),
+	)
+
+	const tagsMessage = await conversation.wait()
+
+	let tags: string[] = []
+
+	if (tagsMessage.message?.text === '/cancel') {
+		await ctx.reply('Creation cancelled.')
+		return
+	}
+
+	if (tagsMessage.message?.text && tagsMessage.message.text !== '/skip') {
+		const parsedTags = parseTagsInput(tagsMessage.message.text)
+
+		if (parsedTags.length === 0) {
+			await ctx.reply('No valid tags were provided.')
+		}
+		else {
+			tags = parsedTags
+			await ctx.reply(`Tags added: ${tags.join(', ')}`)
+		}
+	}
+
+	const confirmKeyboard = new InlineKeyboard()
+		.text('Publish', 'confirm_create')
+		.text('Cancel', 'cancel_create')
+
+	await ctx.reply(
+		[
+			'Review your moment.',
+			`Content: ${content.substring(0, 100)}${content.length > 100 ? '...' : ''}`,
+			`Images: ${images.length}`,
+			`Tags: ${tags.length > 0 ? tags.join(', ') : 'None'}`,
+			'',
+			'Publish now?',
+		].join('\n'),
+		{ reply_markup: confirmKeyboard },
+	)
+
+	const confirmation = await conversation.wait()
+
+	if (confirmation.callbackQuery?.data === 'cancel_create') {
+		await confirmation.answerCallbackQuery()
+		await ctx.reply('Creation cancelled.')
+		return
+	}
+
+	if (confirmation.callbackQuery?.data !== 'confirm_create') {
+		if (confirmation.callbackQuery) {
+			await confirmation.answerCallbackQuery()
+		}
+		await ctx.reply('Invalid action. Creation cancelled.')
+		return
+	}
+
+	await confirmation.answerCallbackQuery()
+
+	try {
+		await ctx.reply('Creating moment...')
+
+		const { MomentService } = await import('@/lib/moments.service')
+
+		const moment = await MomentService.create({
+			content: content.trim(),
+			images: images.length > 0 ? images : undefined,
+			tags: tags.length > 0 ? tags : undefined,
+		})
+
+		await ctx.reply(
+			[
+				'New moment created.',
+				'',
+				formatMomentDetails(moment),
+			].join('\n'),
+			{ reply_markup: createMomentActionsKeyboard(moment.id) },
+		)
+	}
+	catch {
+		await ctx.reply('Failed to create moment. Please try again later.')
+	}
+}
