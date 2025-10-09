@@ -1,17 +1,21 @@
+import type { Moment as PrismaMoment } from '@/generated/prisma'
 import type { CreateMomentInput, GetMomentsQuery, UpdateMomentInput } from '@/lib/moments.schema'
 import type { Moment } from '@/types/moment'
 import { Prisma } from '@/generated/prisma'
 import { prisma } from '@/lib/prisma'
 
-/**
- * Moment data access layer
- * Handles database operations with minimal transformation logic
- */
+function fromPrisma(prismaMoment: PrismaMoment): Moment {
+	return {
+		id: prismaMoment.id,
+		content: prismaMoment.content,
+		images: Array.isArray(prismaMoment.images) ? prismaMoment.images as string[] : null,
+		tags: Array.isArray(prismaMoment.tags) ? prismaMoment.tags as string[] : null,
+		createdAt: prismaMoment.createdAt,
+		updatedAt: prismaMoment.updatedAt,
+	}
+}
+
 export class MomentService {
-	/**
-	 * Retrieves paginated moments with optional tag filtering
-	 * Note: Tag filtering uses string_contains to search within the JSON array
-	 */
 	static async findAll(query: GetMomentsQuery) {
 		const { limit, offset, tag } = query
 		const where: Prisma.MomentWhereInput = tag
@@ -29,27 +33,21 @@ export class MomentService {
 		])
 
 		return {
-			data: moments as unknown as Moment[],
+			data: moments.map(fromPrisma),
 			total,
 			limit,
 			offset,
 		}
 	}
 
-	/**
-	 * Retrieves a single moment by ID
-	 */
 	static async findById(id: string): Promise<Moment | null> {
 		const moment = await prisma.moment.findUnique({
 			where: { id },
 		})
 
-		return moment as unknown as Moment | null
+		return moment ? fromPrisma(moment) : null
 	}
 
-	/**
-	 * Creates a new moment
-	 */
 	static async create(data: CreateMomentInput): Promise<Moment> {
 		const moment = await prisma.moment.create({
 			data: {
@@ -59,13 +57,9 @@ export class MomentService {
 			},
 		})
 
-		return moment as unknown as Moment
+		return fromPrisma(moment)
 	}
 
-	/**
-	 * Updates moment by ID
-	 * @throws PrismaClientKnownRequestError (P2025) if moment not found
-	 */
 	static async update(id: string, data: UpdateMomentInput): Promise<Moment> {
 		const moment = await prisma.moment.update({
 			where: { id },
@@ -80,13 +74,9 @@ export class MomentService {
 			},
 		})
 
-		return moment as unknown as Moment
+		return fromPrisma(moment)
 	}
 
-	/**
-	 * Deletes moment by ID
-	 * @throws PrismaClientKnownRequestError (P2025) if moment not found
-	 */
 	static async delete(id: string): Promise<void> {
 		await prisma.moment.delete({
 			where: { id },
