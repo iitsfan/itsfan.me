@@ -64,6 +64,7 @@ export async function editMomentConversation(
 	)
 
 	const newImages: string[] = []
+	let shouldRemoveImages = false
 
 	while (newImages.length < MOMENT_LIMITS.MAX_IMAGES) {
 		const imageMessage = await conversation.wait()
@@ -77,19 +78,24 @@ export async function editMomentConversation(
 
 		if (text === '/skip') {
 			if (newImages.length === 0) {
-				await ctx.reply('Keeping existing images.')
+				if (shouldRemoveImages) {
+					await ctx.reply('No images will remain for this moment.')
+				}
+				else {
+					await ctx.reply('Keeping existing images.')
+				}
 			}
 			else {
-				updateData.images = newImages
-				await ctx.reply('Keeping the newly added images.')
+				await ctx.reply('Continuing to the next step.')
 			}
 			break
 		}
 
 		if (text === '/clear') {
-			updateData.images = []
-			await ctx.reply('All images will be removed.')
-			break
+			shouldRemoveImages = true
+			newImages.length = 0
+			await ctx.reply('All images removed. Send new images, use /skip to keep none, or /cancel to abort.')
+			continue
 		}
 
 		if (message?.photo) {
@@ -97,6 +103,7 @@ export async function editMomentConversation(
 			try {
 				const imageUrl = await saveTelegramImageToR2(ctx, photo)
 				newImages.push(imageUrl)
+				shouldRemoveImages = false
 
 				await ctx.reply(`Image added (${newImages.length}/${MOMENT_LIMITS.MAX_IMAGES}). Send more photos, or use /skip to continue.`)
 			}
@@ -115,8 +122,11 @@ export async function editMomentConversation(
 		await ctx.reply('Only photos are supported here. Send an image, use /skip to keep current images, /clear to remove them, or /cancel to abort.')
 	}
 
-	if (newImages.length > 0 && updateData.images === undefined) {
+	if (newImages.length > 0) {
 		updateData.images = newImages
+	}
+	else if (shouldRemoveImages) {
+		updateData.images = []
 	}
 
 	await ctx.reply(
