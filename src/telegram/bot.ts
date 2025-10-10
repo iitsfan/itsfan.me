@@ -69,7 +69,7 @@ const FLOW_INLINE_ACTIONS = new Set([
 	'cancel_edit',
 ])
 
-const ALLOWED_FLOW_COMMANDS = new Set(['/skip', '/done', '/clear'])
+const ALLOWED_FLOW_COMMANDS = new Set(['/skip', '/clear'])
 
 bot.use(async (ctx, next) => {
 	const publishActive = ctx.conversation.active('createMoment') > 0

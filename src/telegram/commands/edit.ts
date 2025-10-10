@@ -59,7 +59,7 @@ export async function editMomentConversation(
 	await ctx.reply(
 		[
 			`Send new images (up to ${MOMENT_LIMITS.MAX_IMAGES}).`,
-			'Use /done when finished, /skip to keep current images, /clear to remove all images, or /cancel to abort.',
+			'Use /skip to keep current images, /clear to remove all images, or /cancel to abort.',
 		].join('\n'),
 	)
 
@@ -75,7 +75,13 @@ export async function editMomentConversation(
 		}
 
 		if (text === '/skip') {
-			await ctx.reply('Keeping existing images.')
+			if (newImages.length === 0) {
+				await ctx.reply('Keeping existing images.')
+			}
+			else {
+				updateData.images = newImages
+				await ctx.reply('Keeping the newly added images.')
+			}
 			break
 		}
 
@@ -85,11 +91,9 @@ export async function editMomentConversation(
 			break
 		}
 
-		if (text === '/done') {
-			if (newImages.length > 0) {
-				updateData.images = newImages
-			}
-			break
+		if (text && text.startsWith('/')) {
+			await ctx.reply('Unsupported command. Send a photo, use /skip, /clear, or /cancel.')
+			continue
 		}
 
 		if (imageMessage.message?.photo) {
@@ -98,7 +102,7 @@ export async function editMomentConversation(
 				const imageUrl = await saveTelegramImageToR2(ctx, photo)
 				newImages.push(imageUrl)
 
-				await ctx.reply(`Image added (${newImages.length}/${MOMENT_LIMITS.MAX_IMAGES}). Send more or use /done when finished.`)
+				await ctx.reply(`Image added (${newImages.length}/${MOMENT_LIMITS.MAX_IMAGES}). Send more photos, or use /skip to continue.`)
 			}
 			catch (error) {
 				console.error('Failed to store image in R2:', error)
@@ -107,7 +111,11 @@ export async function editMomentConversation(
 			continue
 		}
 
-		await ctx.reply('Send a photo, use /done when finished, /skip to keep current images, or /cancel to abort.')
+		await ctx.reply('Send a photo, use /skip to keep current images, /clear to remove them, or /cancel to abort.')
+	}
+
+	if (newImages.length > 0 && updateData.images === undefined) {
+		updateData.images = newImages
 	}
 
 	await ctx.reply(

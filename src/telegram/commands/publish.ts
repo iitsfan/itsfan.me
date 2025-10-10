@@ -40,21 +40,27 @@ export async function createMomentConversation(
 		[
 			'Add images (optional).',
 			`Send photos, up to ${MOMENT_LIMITS.MAX_IMAGES}.`,
-			'Use /done when finished or /skip to continue without images.',
-			'Use /cancel to abort.',
+			'Use /skip to continue without images or /cancel to abort.',
 		].join('\n'),
 	)
 
 	while (images.length < MOMENT_LIMITS.MAX_IMAGES) {
 		const imageMessage = await conversation.wait()
+		const text = imageMessage.message?.text?.trim()
 
-		if (imageMessage.message?.text === '/skip' || imageMessage.message?.text === '/done') {
+		if (text === '/cancel') {
+			await ctx.reply('Creation cancelled.')
+			return
+		}
+
+		if (text === '/skip') {
+			await ctx.reply('Continuing to the next step.')
 			break
 		}
 
-		if (imageMessage.message?.text === '/cancel') {
-			await ctx.reply('Creation cancelled.')
-			return
+		if (text && text.startsWith('/')) {
+			await ctx.reply('Unsupported command. Send a photo, use /skip to continue without images, or /cancel to abort.')
+			continue
 		}
 
 		if (imageMessage.message?.photo) {
@@ -64,7 +70,7 @@ export async function createMomentConversation(
 				images.push(imageUrl)
 
 				await ctx.reply(
-					`Image added (${images.length}/${MOMENT_LIMITS.MAX_IMAGES}). Send more, /done to finish, or /skip to continue without more images.`,
+					`Image added (${images.length}/${MOMENT_LIMITS.MAX_IMAGES}). Send more photos, or use /skip to continue without more images.`,
 				)
 			}
 			catch (error) {
@@ -73,7 +79,7 @@ export async function createMomentConversation(
 			}
 		}
 		else {
-			await ctx.reply('Send a photo, use /done when finished, or /skip to continue without images.')
+			await ctx.reply('Send a photo, or use /skip to continue without images. Use /cancel to abort.')
 		}
 	}
 
