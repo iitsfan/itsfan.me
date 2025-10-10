@@ -1,7 +1,7 @@
 import type { Conversation } from '@grammyjs/conversations'
 import type { BotContext } from '@/telegram/shared'
 import { InlineKeyboard } from 'grammy'
-import { createMomentActionsKeyboard, ERROR_MESSAGES, formatMomentDetails, MOMENT_LIMITS, parseTagsInput, saveTelegramImageToR2 } from '@/telegram/shared'
+import { ERROR_MESSAGES, formatMomentDetails, MOMENT_LIMITS, parseTagsInput, saveTelegramImageToR2 } from '@/telegram/shared'
 
 export async function createMomentConversation(
 	conversation: Conversation<BotContext, BotContext>,
@@ -175,8 +175,7 @@ export async function createMomentConversation(
 				'New moment created.',
 				'',
 				formatMomentDetails(moment),
-			].join('\n'),
-			{ reply_markup: createMomentActionsKeyboard(moment.id) },
+			].join('\n')
 		)
 	}
 	catch {

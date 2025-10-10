@@ -177,12 +177,6 @@ export function formatDeleteConfirmation(moment: Moment): string {
 }
 
 // Keyboards
-export function createMomentActionsKeyboard(momentId: string): InlineKeyboard {
-	return new InlineKeyboard()
-		.text('Edit', `edit_${momentId}`)
-		.text('Delete', `delete_${momentId}`)
-}
-
 export function createDeleteConfirmKeyboard(momentId: string): InlineKeyboard {
 	return new InlineKeyboard()
 		.text('Confirm delete', `confirm_delete_${momentId}`)

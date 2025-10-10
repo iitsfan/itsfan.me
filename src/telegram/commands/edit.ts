@@ -3,7 +3,7 @@ import type { UpdateMomentInput } from '@/lib/moments.schema'
 import type { BotContext } from '@/telegram/shared'
 import type { Moment } from '@/types/moment'
 import { InlineKeyboard } from 'grammy'
-import { createMomentActionsKeyboard, formatMomentDetails, MOMENT_LIMITS, parseTagsInput, saveTelegramImageToR2 } from '@/telegram/shared'
+import { formatMomentDetails, MOMENT_LIMITS, parseTagsInput, saveTelegramImageToR2 } from '@/telegram/shared'
 
 export async function editMomentConversation(
 	conversation: Conversation<BotContext, BotContext>,
@@ -206,6 +206,5 @@ export async function editMomentConversation(
 			'',
 			formatMomentDetails(updatedMoment),
 		].join('\n'),
-		{ reply_markup: createMomentActionsKeyboard(updatedMoment.id) },
 	)
 }
