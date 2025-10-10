@@ -35,6 +35,11 @@ export async function handleDeleteCallback(ctx: BotContext) {
 	if (callbackData === 'cancel_delete') {
 		if (ctx.callbackQuery) {
 			await ctx.answerCallbackQuery()
+			if (ctx.callbackQuery.message) {
+				await ctx
+					.editMessageReplyMarkup(undefined)
+					.catch(() => undefined)
+			}
 		}
 		await ctx.reply('Delete cancelled.')
 		return
@@ -49,6 +54,12 @@ export async function handleDeleteCallback(ctx: BotContext) {
 		const { MomentService } = await import('@/lib/moments.service')
 
 		await MomentService.delete(momentId)
+
+		if (ctx.callbackQuery?.message) {
+			await ctx
+				.editMessageReplyMarkup(undefined)
+				.catch(() => undefined)
+		}
 
 		await ctx.reply(
 			[

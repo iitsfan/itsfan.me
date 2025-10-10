@@ -62,6 +62,60 @@ bot.use(async (ctx, next) => {
 	}
 })
 
+const FLOW_INLINE_ACTIONS = new Set([
+	'confirm_create',
+	'cancel_create',
+	'confirm_edit',
+	'cancel_edit',
+])
+
+const ALLOWED_FLOW_COMMANDS = new Set(['/skip', '/done', '/clear'])
+
+bot.use(async (ctx, next) => {
+	const publishActive = ctx.conversation.active('createMoment') > 0
+	const editActive = ctx.conversation.active('editMoment') > 0
+
+	if (!publishActive && !editActive) {
+		return next()
+	}
+
+	if (ctx.callbackQuery?.data) {
+		if (FLOW_INLINE_ACTIONS.has(ctx.callbackQuery.data)) {
+			return next()
+		}
+
+		await ctx.answerCallbackQuery({ text: 'Finish the current flow or use /cancel first.', show_alert: true })
+		return
+	}
+
+	const rawText = ctx.message?.text?.trim()
+
+	if (!rawText || !rawText.startsWith('/')) {
+		return next()
+	}
+
+	const commandToken = rawText.split(/\s+/)[0]
+	const baseCommand = commandToken.split('@')[0]
+
+	if (baseCommand === '/cancel') {
+		if (publishActive) {
+			await ctx.conversation.exit('createMoment')
+		}
+		if (editActive) {
+			await ctx.conversation.exit('editMoment')
+		}
+		await ctx.reply('Active flow cancelled.')
+		return
+	}
+
+	if (ALLOWED_FLOW_COMMANDS.has(baseCommand)) {
+		return next()
+	}
+
+	await ctx.reply('A flow is already in progress. Finish it first or use /cancel to abort.')
+	return
+})
+
 bot.use(createConversation(createMomentConversation, 'createMoment'))
 bot.use(createConversation(editMomentConversation, 'editMoment'))
 

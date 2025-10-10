@@ -130,6 +130,11 @@ export async function createMomentConversation(
 
 	if (confirmation.callbackQuery?.data === 'cancel_create') {
 		await confirmation.answerCallbackQuery()
+		if (confirmation.callbackQuery.message) {
+			await confirmation
+				.editMessageReplyMarkup(undefined)
+				.catch(() => undefined)
+		}
 		await ctx.reply('Creation cancelled.')
 		return
 	}
@@ -137,12 +142,22 @@ export async function createMomentConversation(
 	if (confirmation.callbackQuery?.data !== 'confirm_create') {
 		if (confirmation.callbackQuery) {
 			await confirmation.answerCallbackQuery()
+			if (confirmation.callbackQuery.message) {
+				await confirmation
+					.editMessageReplyMarkup(undefined)
+					.catch(() => undefined)
+			}
 		}
 		await ctx.reply('Invalid action. Creation cancelled.')
 		return
 	}
 
 	await confirmation.answerCallbackQuery()
+	if (confirmation.callbackQuery?.message) {
+		await confirmation
+			.editMessageReplyMarkup(undefined)
+			.catch(() => undefined)
+	}
 
 	try {
 		await ctx.reply('Creating moment...')

@@ -179,12 +179,22 @@ export async function editMomentConversation(
 	if (confirmation.callbackQuery?.data !== 'confirm_edit') {
 		if (confirmation.callbackQuery) {
 			await confirmation.answerCallbackQuery()
+			if (confirmation.callbackQuery.message) {
+				await confirmation
+					.editMessageReplyMarkup(undefined)
+					.catch(() => undefined)
+			}
 		}
 		await ctx.reply('Edit cancelled.')
 		return
 	}
 
 	await confirmation.answerCallbackQuery()
+	if (confirmation.callbackQuery?.message) {
+		await confirmation
+			.editMessageReplyMarkup(undefined)
+			.catch(() => undefined)
+	}
 	await ctx.reply('Saving changes...')
 
 	const { MomentService } = await import('@/lib/moments.service')
