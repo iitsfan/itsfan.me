@@ -46,7 +46,8 @@ export async function createMomentConversation(
 
 	while (images.length < MOMENT_LIMITS.MAX_IMAGES) {
 		const imageMessage = await conversation.wait()
-		const text = imageMessage.message?.text?.trim()
+		const message = imageMessage.message
+		const text = message?.text?.trim()
 
 		if (text === '/cancel') {
 			await ctx.reply('Creation cancelled.')
@@ -58,13 +59,8 @@ export async function createMomentConversation(
 			break
 		}
 
-		if (text && text.startsWith('/')) {
-			await ctx.reply('Unsupported command. Send a photo, use /skip to continue without images, or /cancel to abort.')
-			continue
-		}
-
-		if (imageMessage.message?.photo) {
-			const photo = imageMessage.message.photo[imageMessage.message.photo.length - 1]
+		if (message?.photo) {
+			const photo = message.photo[message.photo.length - 1]
 			try {
 				const imageUrl = await saveTelegramImageToR2(ctx, photo)
 				images.push(imageUrl)
@@ -77,9 +73,15 @@ export async function createMomentConversation(
 				console.error('Failed to store image in R2:', error)
 				await ctx.reply('Failed to process the image. Please try again.')
 			}
+			continue
+		}
+
+		if (text && text.startsWith('/')) {
+			await ctx.reply('Unsupported command. Send a photo, use /skip to continue without images, or /cancel to abort.')
+			continue
 		}
 		else {
-			await ctx.reply('Send a photo, or use /skip to continue without images. Use /cancel to abort.')
+			await ctx.reply('Only photos are supported here. Send an image, use /skip to continue without images, or /cancel to abort.')
 		}
 	}
 
