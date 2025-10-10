@@ -1,23 +1,28 @@
+import { Suspense } from 'react'
 import PageTitle from '@/components/layouts/pageTitle'
-import MomentCard from '@/components/momentCard'
+import MomentsList from '@/components/momentsList'
 import { MomentService } from '@/lib/moments.service'
 
-export default async function Moments() {
-	const { data: moments } = await MomentService.findAll({
-		limit: 10,
-		offset: 0,
-	})
-
+export default function Moments() {
 	return (
 		<>
 			<PageTitle title="📸 Moments" />
-			<div className="mt-8 space-y-6">
-				{
-					moments.map(moment => (
-						<MomentCard key={moment.id} item={moment} />
-					))
-				}
-			</div>
+			<Suspense fallback={<MomentsLoading />}>
+				<MomentsListWrapper />
+			</Suspense>
 		</>
+	)
+}
+
+async function MomentsListWrapper() {
+	const { data: moments, total } = await MomentService.findAll({ limit: 5, offset: 0 })
+	return <MomentsList initialMoments={moments} initialTotal={total} />
+}
+
+function MomentsLoading() {
+	return (
+		<div className="mt-8 text-sm text-(--text-tertiary)">
+			Loading...
+		</div>
 	)
 }
