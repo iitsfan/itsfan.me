@@ -1,7 +1,11 @@
+'use client'
+
 import type { Moment } from '@/types/moment'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import mediumZoom from 'medium-zoom'
 import Image from 'next/image'
+import { useEffect, useRef } from 'react'
 import IconBadge from './ui/IconBadge'
 import 'dayjs/locale/zh-cn'
 
@@ -12,6 +16,23 @@ interface MomentCardProps {
 }
 
 export default function MomentCard({ item }: MomentCardProps) {
+	const imagesContainerRef = useRef<HTMLDivElement | null>(null)
+
+	useEffect(() => {
+		if (!imagesContainerRef.current)
+			return
+
+		const images = imagesContainerRef.current.querySelectorAll('img')
+		if (images.length === 0)
+			return
+
+		const zoom = mediumZoom(images)
+
+		return () => {
+			zoom.detach()
+		}
+	}, [item.images])
+
 	return (
 		<div className="rounded-xl border border-gray-300/50 bg-gray-200/80 p-4 dark:border-gray-600/50 dark:bg-gray-100/10">
 			<div className="flex items-center justify-between">
@@ -32,7 +53,7 @@ export default function MomentCard({ item }: MomentCardProps) {
 
 				{item.images && item.images.length > 0 && (
 					<div className="mt-3 overflow-x-auto">
-						<div className="flex gap-2">
+						<div ref={imagesContainerRef} className="flex gap-2">
 							{item.images.map(image => (
 								<Image
 									key={image}
