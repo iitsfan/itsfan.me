@@ -29,6 +29,7 @@ export default defineConfig({
 					title: s.string().max(50),
 					description: s.string().max(100).optional(),
 					date: s.isodate(),
+					category: s.string().max(10),
 					tags: s.array(s.string()).default([]),
 					slug: s.path().transform(path => path.replace('posts/', '')),
 					draft: s.boolean().default(false),

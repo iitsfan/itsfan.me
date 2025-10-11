@@ -55,13 +55,11 @@ export default async function PostPage({ params }: PostPageProps) {
 						</time>
 						<span className="text-2xl text-(--text-tertiary)">·</span>
 						<div className="flex flex-wrap items-center">
-							{post.tags && post.tags.length > 0 && post.tags.map(tag => (
-								<IconBadge
-									key={post.slug + tag}
-									text={`#${tag}`}
-									variant="category"
-								/>
-							))}
+							<IconBadge
+								key={post.category}
+								text={`#${post.category}`}
+								variant="category"
+							/>
 						</div>
 
 					</div>
