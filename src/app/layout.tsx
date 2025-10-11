@@ -28,6 +28,9 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
+			<head>
+				<link rel="alternate" type="application/rss+xml" href="https://itsfan.me/feed.xml" />
+			</head>
 			<body className={cn(
 				notoSans.variable,
 				notoSansSC.variable,
