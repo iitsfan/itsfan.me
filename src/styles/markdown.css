@@ -131,6 +131,35 @@
         @apply mx-auto mt-8 block rounded;
     }
 
+    table {
+        @apply w-full my-6 border border-(--border-subtle) rounded-lg overflow-hidden bg-(--surface-card) border-collapse shadow-sm;
+    }
+
+    thead {
+        @apply bg-(--surface-muted) text-(--text-primary) uppercase text-sm tracking-[0.08em];
+    }
+
+    th,
+    td {
+        @apply px-4 py-3 border-b border-(--border-subtle) text-left align-top;
+    }
+
+    th {
+        @apply font-semibold;
+    }
+
+    tbody tr:nth-child(even) {
+        @apply bg-(--surface-muted)/30;
+    }
+
+    tbody tr:hover {
+        @apply transition-colors duration-200 bg-(--surface-overlay)/40;
+    }
+
+    tbody tr:last-of-type td {
+        @apply border-b-0;
+    }
+
     figure[data-rehype-pretty-code-figure] {
         @apply my-6 relative;
 
