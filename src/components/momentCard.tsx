@@ -6,7 +6,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import mediumZoom from 'medium-zoom'
 import Image from 'next/image'
 import { useEffect, useRef } from 'react'
-import IconBadge from './ui/IconBadge'
+import IconBadge from '@/components/ui/IconBadge'
 import 'dayjs/locale/zh-cn'
 
 dayjs.extend(relativeTime)
@@ -34,20 +34,19 @@ export default function MomentCard({ item }: MomentCardProps) {
 	}, [item.images])
 
 	return (
-		<div className="rounded-xl border border-gray-300/50 bg-gray-200/80 p-4 dark:border-gray-600/50 dark:bg-gray-100/10">
+		<div className="rounded-xl border border-(--border-subtle) bg-(--surface-card) p-4 shadow-sm transition-colors duration-300">
 			<div className="flex items-center justify-between">
-				<h2 className="font-bold">
+				<h2 className="font-bold text-(--text-primary)">
 					@FAN
 				</h2>
-				<time className="flex items-center text-sm text-gray-600 dark:text-gray-400">
+				<time className="flex items-center text-sm text-(--text-tertiary)">
 					{dayjs(item.createdAt).fromNow()}
 				</time>
 			</div>
-
-			<hr className="my-3 h-0.5 bg-gray-900 opacity-5 dark:bg-gray-100" />
+			<div className="my-3 h-px w-full bg-(--border-subtle) opacity-60" aria-hidden="true" />
 
 			<div className="pb-4">
-				<p className="overflow-hidden break-words whitespace-pre-wrap">
+				<p className="overflow-hidden break-words whitespace-pre-wrap text-(--text-secondary)">
 					{item.content}
 				</p>
 
@@ -68,17 +67,15 @@ export default function MomentCard({ item }: MomentCardProps) {
 					</div>
 				)}
 			</div>
-
-			<div className="mt-2 flex items-center space-x-2">
+			<div className="mt-2 flex flex-wrap items-center gap-3">
 				{item.tags && item.tags.length > 0 && item.tags.map(tag => (
 					<IconBadge
 						key={item.id + tag}
-						variant="moment"
 						text={`#${tag}`}
+						variant="tag"
 					/>
 				))}
 			</div>
-
 		</div>
 	)
 }

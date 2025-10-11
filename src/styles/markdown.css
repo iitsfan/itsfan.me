@@ -7,7 +7,7 @@
     h4,
     h5,
     h6 {
-        @apply my-5 font-bold relative scroll-mt-14 sm:scroll-mt-22 text-(--text-primary)/90;
+        @apply my-5 font-bold relative scroll-mt-14 sm:scroll-mt-22 text-(--text-primary) tracking-wide leading-tight;
 
         a.anchor {
             @apply relative block w-full cursor-pointer text-inherit no-underline;
@@ -41,16 +41,16 @@
     }
 
     hr {
-        @apply my-4 mt-8 border-(--text-quaternary);
+        @apply my-6 mt-10 border-0 h-[1px] bg-(--border-subtle);
     }
 
     p,
     li {
-        @apply my-3;
+        @apply my-4;
     }
 
     ul:not(.contains-task-list) {
-        @apply my-4 pl-6 space-y-2;
+        @apply my-4 pl-6 space-y-3;
 
         li:not(.task-list-item) {
             @apply relative;
@@ -82,7 +82,7 @@
     }
 
     ol {
-        @apply my-4 pl-6 space-y-2 list-decimal;
+        @apply my-4 pl-6 space-y-3 list-decimal;
 
         li {
             @apply relative;
@@ -94,11 +94,11 @@
     }
 
     :not(h1, h2, h3, h4, h5, h6, ul, sup)>a {
-        @apply text-blue-600 transition cursor-pointer duration-300 dark:text-blue-300 underline underline-offset-4 decoration-solid decoration-gray-400 dark:decoration-gray-600 dark:hover:decoration-blue-400 hover:decoration-blue-500;
+        @apply text-(--accent) transition cursor-pointer duration-300 underline underline-offset-4 decoration-solid decoration-(--accent-soft) hover:text-(--accent-strong) hover:decoration-(--accent-strong);
     }
 
     :not(pre)>code {
-        @apply inline-flex items-center bg-gray-200 dark:bg-gray-900 mx-1 px-2 py-0.5 rounded whitespace-pre transition-colors duration-300 text-sm font-medium text-(--text-secondary);
+        @apply inline-flex items-center bg-(--surface-muted) mx-1 px-2 py-0.5 rounded whitespace-pre transition-colors duration-300 text-sm font-medium text-(--text-secondary) border border-(--border-subtle);
 
         a {
             @apply no-underline;
@@ -106,24 +106,24 @@
     }
 
     kbd {
-        @apply inline-flex items-center bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 mx-1 px-2 py-0.5 rounded shadow-sm text-xs font-mono font-semibold text-(--text-primary) transition-colors duration-300;
+        @apply inline-flex items-center bg-(--surface-muted) border border-(--border-subtle) mx-1 px-2 py-0.5 rounded text-xs font-mono font-semibold text-(--text-primary) transition-colors duration-300;
     }
 
     pre {
-        @apply bg-gray-200/30 dark:bg-gray-700/40 border border-gray-200 dark:border-gray-700 rounded-lg overflow-auto my-4 p-4;
+        @apply bg-(--surface-muted) border border-(--border-subtle) rounded-lg overflow-auto my-5 p-4 text-(--text-secondary) shadow-sm;
 
         &::-webkit-scrollbar-track,
         &::-webkit-scrollbar-corner {
-            @apply rounded-full bg-gray-700;
+            @apply rounded-full bg-(--border-subtle);
         }
 
         &::-webkit-scrollbar-thumb {
-            @apply rounded-full bg-gray-500;
+            @apply rounded-full bg-(--accent);
         }
     }
 
     blockquote {
-        @apply bg-gray-200/30 border-gray-300/80 border-l-7 px-3 py-1 my-3 rounded-l-sm rounded-r-lg dark:bg-gray-900 dark:border-gray-700;
+        @apply relative my-6 rounded-md border border-(--border-subtle) border-l-4 border-l-(--accent) bg-(--surface-card) px-4 text-(--text-secondary) shadow-sm;
     }
 
     img,
@@ -135,7 +135,7 @@
         @apply my-6 relative;
 
         [data-rehype-pretty-code-title] {
-            @apply px-4 py-2 text-sm font-semibold bg-gray-200/70 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-t-lg border-b-0 m-0 text-(--text-primary);
+            @apply px-4 py-2 text-sm font-semibold text-(--text-primary) bg-(--surface-card) border border-(--border-subtle) rounded-t-lg border-b-0 m-0 shadow-sm;
         }
 
         &:has([data-rehype-pretty-code-title]) pre {
@@ -153,7 +153,7 @@
                 @apply px-4 py-0.5 border-l-2 border-l-transparent;
 
                 &.highlighted {
-                    @apply bg-blue-300/10 border-l-blue-500/60 dark:bg-blue-600/10 dark:border-l-blue-400/70 border-l-2;
+                    @apply bg-(--accent-soft) border-l-(--accent-strong) border-l-2;
                 }
 
                 &.diff.add {
@@ -175,7 +175,7 @@
         }
 
         button {
-            @apply hover:opacity-100! absolute right-3 top-3 flex cursor-pointer select-none items-center justify-center rounded-md dark:bg-slate-600 text-sm font-medium dark:text-white opacity-0 shadow outline-0 transition bg-gray-300/50 text-gray-400;
+            @apply hover:opacity-100! absolute right-3 top-3 flex cursor-pointer select-none items-center justify-center rounded-md bg-(--surface-muted)/90 text-sm font-medium text-(--text-tertiary) opacity-0 shadow outline-0 transition border border-(--border-subtle);
         
             svg {
                 @apply m-2 size-5;
@@ -186,7 +186,7 @@
             }
         
             &.copied {
-                @apply opacity-100! text-green-500 dark:text-green-400;
+                @apply opacity-100! text-(--accent-strong);
         
                 .check {
                     @apply opacity-100;

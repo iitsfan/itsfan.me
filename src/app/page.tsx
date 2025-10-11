@@ -11,13 +11,13 @@ export default function Home() {
 					alt="FAN's avatar"
 					width={416}
 					height={416}
-					className="size-32 rounded-full border-2 border-gray-300 dark:border-gray-600"
+					className="size-32 rounded-full border-2 border-(--border-subtle) bg-(--surface-card)"
 				/>
 				<div className="space-y-1 text-left">
-					<h1 className="text-4xl font-bold">
+					<h1 className="text-4xl font-bold text-(--text-primary)">
 						Hi, I&apos;m FAN 👋
 					</h1>
-					<p className="text-xl leading-relaxed">
+					<p className="text-xl leading-relaxed text-(--text-secondary)">
 						I&apos;m striving to be a great front-end developer...
 					</p>
 				</div>

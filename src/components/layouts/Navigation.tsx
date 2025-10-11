@@ -9,15 +9,16 @@ interface NavigationProps {
 
 function NavigationItem(props: ComponentProps<typeof Link> & { onClick?: () => void }) {
 	return (
-		<Link
-			{...props}
-			className={cn(
-				'block cursor-pointer rounded-sm px-2 py-1 font-semibold',
-				'transition-colors duration-300',
-				'hover:bg-gray-200/40 dark:hover:bg-gray-900/40',
-				'sm:ml-2 sm:py-2 sm:first:ml-0',
-			)}
-		>
+	<Link
+		{...props}
+		className={cn(
+			'block cursor-pointer rounded-md px-2.5 py-1.5 font-semibold text-(--text-secondary)',
+			'transition-colors duration-300 focus-visible:outline-none',
+			'hover:bg-(--accent-soft) hover:text-(--accent-strong)',
+			'focus-visible:ring-2 focus-visible:ring-(--focus-ring) focus-visible:ring-offset-2 focus-visible:ring-offset-(--bg-primary)',
+			'sm:ml-2 sm:py-2 sm:first:ml-0',
+		)}
+	>
 			{props.children}
 		</Link>
 	)

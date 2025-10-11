@@ -13,7 +13,7 @@ export default function Friends() {
 				{friendsData.links.map(link => (
 					<a
 						key={link.title}
-						className="mt-4 flex flex-row items-center justify-center rounded-lg bg-gray-200 px-4 py-2 shadow-lg shadow-transparent/5 transition-all duration-300 will-change-transform hover:scale-105 hover:bg-gray-300/80 sm:mt-0 dark:bg-gray-600 dark:hover:bg-gray-600/90"
+						className="mt-4 flex items-center gap-3 rounded-xl border border-(--border-subtle) bg-(--surface-card) px-4 py-3 shadow-sm transition-all duration-300 will-change-transform hover:-translate-y-1 hover:border-(--accent-strong)/60 hover:bg-(--surface-muted) hover:shadow-md sm:mt-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--focus-ring) focus-visible:ring-offset-2 focus-visible:ring-offset-(--bg-primary)"
 						href={link.website || '#'}
 						target={link.website ? '_blank' : undefined}
 						rel={link.website ? 'noopener noreferrer' : undefined}
@@ -23,16 +23,16 @@ export default function Friends() {
 								className="rounded-md"
 								src={link.image}
 								alt={link.title}
-								width={64}
-								height={64}
+								width={56}
+								height={56}
 								loading="lazy"
 							/>
 						</div>
-						<div className="ml-5 flex-grow">
-							<h2 className="text-(-text-primary) font-medium">
+						<div className="flex flex-1 flex-col gap-1">
+							<h2 className="font-medium text-(--text-primary)">
 								{link.title}
 							</h2>
-							<p className="text-sm text-(--text-secondary)">
+							<p className="text-xs text-(--text-secondary) sm:text-sm">
 								{link.description}
 							</p>
 						</div>

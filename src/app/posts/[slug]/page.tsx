@@ -3,6 +3,7 @@ import dayjs from 'dayjs'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { MarkdownContent } from '@/components/MarkdownContent'
+import IconBadge from '@/components/ui/IconBadge'
 interface PostPageProps {
 	params: Promise<{
 		slug: string
@@ -39,19 +40,32 @@ export default async function PostPage({ params }: PostPageProps) {
 
 	return (
 		<>
-			<Link href="/posts" className="mb-4 flex cursor-pointer items-center gap-2 font-semibold">
+			<Link href="/posts" className="mb-4 flex cursor-pointer items-center gap-2 font-semibold text-(--text-secondary) transition-colors duration-200 hover:text-(--text-primary)">
 				<i className="i-mingcute-back-fill" />
 				Back
 			</Link>
 			<article className="prose prose-lg dark:prose-invert max-w-none">
-				<section className="mb-10">
-					<h1 className="mb-2 text-3xl font-extrabold text-(--text-primary)">
+				<section className="mb-10 space-y-3">
+					<h1 className="text-3xl font-extrabold text-(--text-primary)">
 						{post.title}
 					</h1>
-					<time className="mb-6 flex items-center space-x-4 text-lg text-(--text-secondary)">
-						{dayjs(post.date).format('YYYY-MM-DD')}
-						{' '}
-					</time>
+					<div className="flex w-full items-center justify-start space-x-2">
+						<time className="text-lg font-medium text-(--text-secondary)">
+							{dayjs(post.date).format('YYYY/MM/DD')}
+						</time>
+						<span className="text-2xl text-(--text-tertiary)">·</span>
+						<div className="flex flex-wrap items-center">
+							{post.tags && post.tags.length > 0 && post.tags.map(tag => (
+								<IconBadge
+									key={post.slug + tag}
+									text={`#${tag}`}
+									variant="category"
+								/>
+							))}
+						</div>
+
+					</div>
+
 				</section>
 
 				<MarkdownContent content={post.content} className="markdown" />

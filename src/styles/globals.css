@@ -6,34 +6,56 @@
 
 :root {
     /* Main theme colors */
-    --bg-primary: theme('colors.gray.100');
-    --text-primary: theme('colors.gray.800');
-    --text-secondary: theme('colors.gray.700');
-    --text-tertiary: theme('colors.gray.500');
-    --text-quaternary: theme('colors.gray.400');
+    --bg-primary: rgba(244, 245, 247, 1);
+    --bg-secondary: rgba(232, 235, 240, 1);
+    --surface-card: rgba(253, 254, 254, 1);
+    --surface-muted: rgba(241, 243, 245, 1);
+    --surface-overlay: rgba(255, 255, 255, 0.74);
+    --border-subtle: rgba(118, 130, 146, 0.3);
+    --text-primary: rgba(24, 28, 35, 1);
+    --text-secondary: rgba(55, 61, 73, 1);
+    --text-tertiary: rgba(76, 85, 103, 1);
+    --text-quaternary: rgba(91, 98, 117, 1);
+    --accent: rgba(25, 60, 185, 1);
+    --accent-soft: rgba(4, 83, 211, 0.12);
+    --accent-strong: rgba(4, 83, 211, 1);
+    --accent-contrast: rgba(11, 16, 22, 1);
+    --focus-ring: rgba(4, 83, 211, 0.36);
+    --shadow-soft: 0 18px 44px -26px rgba(20, 28, 42, 0.32);
 
     /* React activity calendar colors */
-    --calendar-bg: #ebedf0;
-    --calendar-level-1: #9be9a8;
-    --calendar-level-2: #40c463;
-    --calendar-level-3: #30a14e;
-    --calendar-level-4: #216e39;
+    --calendar-bg: rgba(235, 237, 240, 1);
+    --calendar-level-1: rgba(155, 233, 168, 1);
+    --calendar-level-2: rgba(64, 196, 99, 1);
+    --calendar-level-3: rgba(48, 161, 78, 1);
+    --calendar-level-4: rgba(33, 110, 57, 1);
 }
 
 [data-theme='dark'] {
     /* Main theme colors */
-    --bg-primary: theme('colors.gray.950');
-    --text-primary: theme('colors.gray.200');
-    --text-secondary: theme('colors.gray.300');
-    --text-tertiary: theme('colors.gray.400');
-    --text-quaternary: theme('colors.gray.500');
+    --bg-primary: rgba(8, 11, 17, 1);
+    --bg-secondary: rgba(17, 22, 33, 1);
+    --surface-card: rgba(33, 44, 60, 1);
+    --surface-muted: rgba(39, 51, 66, 1);
+    --surface-overlay: rgba(10, 14, 22, 0.72);
+    --border-subtle: rgba(132, 148, 168, 0.32);
+    --text-primary: rgba(238, 242, 247, 1);
+    --text-secondary: rgba(191, 197, 210, 1);
+    --text-tertiary: rgba(141, 149, 167, 1);
+    --text-quaternary: rgba(118, 128, 149, 1);
+    --accent: rgba(91, 159, 255, 1);
+    --accent-soft: rgba(91, 159, 255, 0.22);
+    --accent-strong: rgba(126, 183, 255, 1);
+    --accent-contrast: rgba(4, 10, 17, 1);
+    --focus-ring: rgba(91, 159, 255, 0.45);
+    --shadow-soft: 0 24px 54px -30px rgba(5, 10, 20, 0.72);
 
     /* React activity calendar colors */
-    --calendar-bg: #161b22;
-    --calendar-level-1: #0e4429;
-    --calendar-level-2: #006d32;
-    --calendar-level-3: #26a641;
-    --calendar-level-4: #39d353;
+    --calendar-bg: rgba(22, 27, 34, 1);
+    --calendar-level-1: rgba(14, 68, 41, 1);
+    --calendar-level-2: rgba(0, 109, 50, 1);
+    --calendar-level-3: rgba(38, 166, 65, 1);
+    --calendar-level-4: rgba(57, 211, 83, 1);
 }
 
 html,body {
@@ -63,9 +85,9 @@ html,body {
 
 .medium-zoom-image {
     border-radius: 8px;
-    z-index: 999;
 }
 
 .medium-zoom-image--opened {
     cursor: zoom-out;
+    z-index: 999;
 }

@@ -17,25 +17,25 @@ export default function Header() {
 
 	return (
 		<>
-			<div className={cn(
-				'fixed top-0 right-0 left-0 z-50 w-screen transform-gpu',
-				'bg-white/40 px-4 py-1 backdrop-blur-sm backdrop-saturate-125 sm:px-0 sm:py-0',
-				'dark:bg-gray-900/20',
-			)}
+		<div className={cn(
+			'fixed top-0 right-0 left-0 z-50 w-screen transform-gpu',
+			'bg-(--surface-overlay) px-4 py-1 backdrop-blur-md backdrop-saturate-150 transition-colors sm:px-0 sm:py-0',
+		)}
 			>
 				<div className="m-auto flex max-w-xl flex-col justify-center py-3 sm:flex-row sm:items-center">
 					<div className="flex flex-grow items-center justify-between">
 						<div className="flex items-center select-none">
-							<h1 className="text-lg font-bold">@FAN</h1>
+							<h1 className="text-lg font-bold text-(--text-primary)">@FAN</h1>
 						</div>
 
 						<button
 							onClick={toggleMenu}
-							className={cn(
-								'flex cursor-pointer items-center justify-center rounded-sm p-1 text-xl',
-								'transition-colors duration-300 sm:hidden',
-								'hover:bg-gray-200/50 dark:hover:bg-gray-900',
-							)}
+					className={cn(
+						'flex cursor-pointer items-center justify-center rounded-sm p-1 text-xl',
+						'transition-colors duration-300 text-(--text-secondary) sm:hidden',
+						'hover:bg-(--accent-soft) hover:text-(--text-primary)',
+						'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--focus-ring) focus-visible:ring-offset-2 focus-visible:ring-offset-(--bg-primary)',
+					)}
 							aria-expanded={isMenuOpen}
 							aria-label={isMenuOpen ? 'close nav menu' : 'open nav menu'}
 						>
