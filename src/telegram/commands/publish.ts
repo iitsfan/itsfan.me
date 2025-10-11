@@ -183,7 +183,7 @@ export async function createMomentConversation(
 				'New moment created.',
 				'',
 				formatMomentDetails(moment),
-			].join('\n')
+			].join('\n'),
 		)
 	}
 	catch {

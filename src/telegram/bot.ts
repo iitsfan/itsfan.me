@@ -113,7 +113,6 @@ bot.use(async (ctx, next) => {
 	}
 
 	await ctx.reply('A flow is already in progress. Finish it first or use /cancel to abort.')
-	return
 })
 
 bot.use(createConversation(createMomentConversation, 'createMoment'))

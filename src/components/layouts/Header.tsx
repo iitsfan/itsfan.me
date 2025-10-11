@@ -17,10 +17,11 @@ export default function Header() {
 
 	return (
 		<>
-		<div className={cn(
-			'fixed top-0 right-0 left-0 z-50 w-screen transform-gpu',
-			'bg-(--surface-overlay) px-4 py-1 backdrop-blur-md backdrop-saturate-150 transition-colors sm:px-0 sm:py-0',
-		)}
+			<div
+				className={cn(
+					'fixed top-0 right-0 left-0 z-50 w-screen transform-gpu',
+					'bg-(--surface-overlay) px-4 py-1 backdrop-blur-md backdrop-saturate-150 transition-colors sm:px-0 sm:py-0',
+				)}
 			>
 				<div className="m-auto flex max-w-xl flex-col justify-center py-3 sm:flex-row sm:items-center">
 					<div className="flex flex-grow items-center justify-between">
@@ -30,19 +31,20 @@ export default function Header() {
 
 						<button
 							onClick={toggleMenu}
-					className={cn(
-						'flex cursor-pointer items-center justify-center rounded-sm p-1 text-xl',
-						'transition-colors duration-300 text-(--text-secondary) sm:hidden',
-						'hover:bg-(--accent-soft) hover:text-(--text-primary)',
-						'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--focus-ring) focus-visible:ring-offset-2 focus-visible:ring-offset-(--bg-primary)',
-					)}
+							className={cn(
+								'flex cursor-pointer items-center justify-center rounded-sm p-1 text-xl',
+								'text-(--text-secondary) transition-colors duration-300 sm:hidden',
+								'hover:bg-(--accent-soft) hover:text-(--text-primary)',
+								'focus-visible:ring-2 focus-visible:ring-(--focus-ring) focus-visible:ring-offset-2 focus-visible:ring-offset-(--bg-primary) focus-visible:outline-none',
+							)}
 							aria-expanded={isMenuOpen}
 							aria-label={isMenuOpen ? 'close nav menu' : 'open nav menu'}
 						>
-							<i className={cn(
-								'transition-transform duration-200',
-								isMenuOpen ? 'i-mingcute-close-fill' : 'i-mingcute-menu-fill',
-							)}
+							<i
+								className={cn(
+									'transition-transform duration-200',
+									isMenuOpen ? 'i-mingcute-close-fill' : 'i-mingcute-menu-fill',
+								)}
 							/>
 						</button>
 					</div>
