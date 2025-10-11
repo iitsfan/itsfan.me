@@ -1,8 +1,37 @@
+import type { Metadata } from 'next'
 import { posts } from '#site/content'
 import dayjs from 'dayjs'
 import Link from 'next/link'
 import React from 'react'
 import PageTitle from '@/components/layouts/pageTitle'
+import { siteConfig } from '@/lib/site'
+
+export const metadata: Metadata = {
+	title: 'Posts',
+	description: 'A place to share and take notes, hoping to create value someday.',
+	alternates: {
+		canonical: '/posts',
+	},
+	openGraph: {
+		title: 'Posts',
+		description: 'A place to share and take notes, hoping to create value someday.',
+		url: `${siteConfig.url}/posts`,
+		type: 'website',
+		images: [
+			{
+				url: siteConfig.ogImage.url,
+				width: siteConfig.ogImage.width,
+				height: siteConfig.ogImage.height,
+				alt: 'Posts',
+			},
+		],
+	},
+	twitter: {
+		title: 'FAN',
+		description: 'A place to share and take notes, hoping to create value someday.',
+		images: [siteConfig.ogImage.url],
+	},
+}
 
 export default function Posts() {
 	const sortedPosts = posts.sort((a, b) =>

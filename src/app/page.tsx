@@ -1,6 +1,35 @@
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import { ContributionsCalendar } from '@/components/ContributionsCalendar'
 import IconBadge from '@/components/ui/IconBadge'
+import { siteConfig } from '@/lib/site'
+
+export const metadata: Metadata = {
+	title: 'FAN',
+	description: siteConfig.description,
+	alternates: {
+		canonical: '/',
+	},
+	openGraph: {
+		title: `${siteConfig.title} · ${siteConfig.tagline}`,
+		description: siteConfig.description,
+		url: siteConfig.url,
+		type: 'website',
+		images: [
+			{
+				url: siteConfig.ogImage.url,
+				width: siteConfig.ogImage.width,
+				height: siteConfig.ogImage.height,
+				alt: `${siteConfig.title} · ${siteConfig.tagline}`,
+			},
+		],
+	},
+	twitter: {
+		title: `${siteConfig.title} · ${siteConfig.tagline}`,
+		description: siteConfig.description,
+		images: [siteConfig.ogImage.url],
+	},
+}
 
 export default function Home() {
 	return (
