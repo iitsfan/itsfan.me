@@ -1,27 +1,23 @@
 'use client'
 
-import type { Moment } from '@/types/moment'
+import type { Moment, MomentListResponse } from '@/types/moment'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import MomentCard from '@/components/momentCard'
 import { cn } from '@/lib/utils'
 
-interface MomentsListProps {
-	initialMoments: Moment[]
-	initialTotal: number
-}
-
 const LIMIT = 5
 const MAX_RETRY = 3
 
-export default function MomentsList({ initialMoments, initialTotal }: MomentsListProps) {
-	const [moments, setMoments] = useState<Moment[]>(initialMoments)
-	const [offset, setOffset] = useState(LIMIT)
-	const [hasMore, setHasMore] = useState(initialMoments.length < initialTotal)
+export default function MomentsList() {
+	const [moments, setMoments] = useState<Moment[]>([])
+	const [offset, setOffset] = useState(0)
+	const [hasMore, setHasMore] = useState(true)
 	const [isLoading, setIsLoading] = useState(false)
 	const [error, setError] = useState<string | null>(null)
 	const [retryCount, setRetryCount] = useState(0)
 	const observerRef = useRef<IntersectionObserver | null>(null)
 	const loadMoreRef = useRef<HTMLDivElement>(null)
+	const initializedRef = useRef(false)
 
 	const loadMore = useCallback(async (options?: { isRetry?: boolean }) => {
 		const isRetry = options?.isRetry ?? false
@@ -51,7 +47,7 @@ export default function MomentsList({ initialMoments, initialTotal }: MomentsLis
 				throw new Error('request-failed')
 			}
 
-			const data = await response.json()
+			const data: MomentListResponse = await response.json()
 
 			let nextLength = 0
 			setMoments((prev) => {
@@ -60,9 +56,19 @@ export default function MomentsList({ initialMoments, initialTotal }: MomentsLis
 				return next
 			})
 
-			setOffset(prev => prev + LIMIT)
-			setHasMore(data.data.length === LIMIT && nextLength < data.total)
+			setOffset(prev => prev + data.data.length)
 			setRetryCount(0)
+			setError(null)
+
+			const reachedEnd = data.data.length === 0 || nextLength >= data.total
+			if (reachedEnd) {
+				setHasMore(false)
+				observerRef.current?.disconnect()
+				observerRef.current = null
+				return
+			}
+
+			setHasMore(true)
 		}
 		catch (error) {
 			console.error('Failed to load more moments:', error)
@@ -76,7 +82,7 @@ export default function MomentsList({ initialMoments, initialTotal }: MomentsLis
 				}
 
 				if (error.message === 'request-failed') {
-					setError('loading error :(')
+					setError('Loading error :(')
 					return
 				}
 			}
@@ -87,6 +93,14 @@ export default function MomentsList({ initialMoments, initialTotal }: MomentsLis
 			setIsLoading(false)
 		}
 	}, [error, hasMore, isLoading, offset, retryCount])
+
+	useEffect(() => {
+		if (initializedRef.current)
+			return
+
+		initializedRef.current = true
+		loadMore()
+	}, [loadMore])
 
 	useEffect(() => {
 		const target = loadMoreRef.current
