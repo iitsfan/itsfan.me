@@ -1,4 +1,5 @@
 import type { MomentListResponse, MomentResponse } from '@/types/moment'
+import { revalidatePath } from 'next/cache'
 import { NextResponse } from 'next/server'
 import { handleApiError } from '@/lib/errorHandler'
 import { createMomentSchema, getMomentsQuerySchema } from '@/lib/moments.schema'
@@ -64,11 +65,9 @@ export async function POST(request: Request) {
 		const data = createMomentSchema.parse(body)
 
 		const moment = await MomentService.create(data)
+		revalidatePath('/moments')
 
-		return NextResponse.json<MomentResponse>(
-			{ data: moment },
-			{ status: 201 },
-		)
+		return NextResponse.json<MomentResponse>({ data: moment }, { status: 201 })
 	}
 	catch (error) {
 		return handleApiError(error, 'POST /api/moments')
