@@ -19,7 +19,7 @@ export default function Header() {
 		<>
 			<div
 				className={cn(
-					'fixed top-0 right-0 left-0 z-50 w-screen transform-gpu',
+					'fixed top-0 right-0 left-0 z-50 w-full transform-gpu',
 					'bg-(--surface-overlay) px-4 py-1 backdrop-blur-md backdrop-saturate-150 transition-colors sm:px-0 sm:py-0',
 				)}
 			>

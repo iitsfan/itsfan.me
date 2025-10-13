@@ -86,7 +86,7 @@ export default function RootLayout({
 				notoSans.variable,
 				notoSansSC.variable,
 				cascadiaCode.variable,
-				'flex min-h-screen w-screen flex-col antialiased',
+				'flex min-h-screen w-full flex-col antialiased',
 			)}
 			>
 				<Providers>
