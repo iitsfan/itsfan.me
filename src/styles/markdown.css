@@ -136,12 +136,12 @@
     }
 
     thead {
-        @apply bg-(--surface-muted) text-(--text-primary) uppercase text-sm tracking-[0.08em];
+        @apply bg-(--surface-muted) text-(--text-primary) uppercase text-sm tracking-wider;
     }
 
     th,
     td {
-        @apply px-4 py-3 border-b border-(--border-subtle) text-left align-top;
+        @apply px-4 py-3 border-b border-(--border-subtle) text-left align-top text-sm;
     }
 
     th {
