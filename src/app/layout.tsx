@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { JetBrains_Mono, Noto_Sans, Noto_Sans_SC } from 'next/font/google'
+import BackToTopButton from '@/components/BackToTopButton'
 import Footer from '@/components/layouts/Footer'
 import Header from '@/components/layouts/Header'
 import { siteConfig } from '@/lib/site'
@@ -96,6 +97,7 @@ export default function RootLayout({
 							{children}
 						</div>
 					</main>
+					<BackToTopButton />
 					<Footer />
 				</Providers>
 			</body>
