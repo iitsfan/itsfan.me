@@ -128,7 +128,7 @@
 
     img,
     video {
-        @apply mx-auto mt-8 block rounded;
+        @apply mt-8 block rounded;
     }
 
     table {
