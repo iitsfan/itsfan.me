@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import LanguageSwitch from '@/components//LanguageSwitch'
 import ToggleThemeButton from '@/components//toggleThemeButton'
 
@@ -9,6 +10,15 @@ export default function Footer() {
 					© 2025 – FAN
 				</p>
 				<div className="flex items-center gap-x-0.5">
+					<Link
+						href="/feed"
+						className="flex items-center justify-center rounded-md p-1 text-(--text-secondary) transition-colors duration-300 hover:bg-(--accent-soft)/40 hover:text-(--accent-strong) focus-visible:ring-2 focus-visible:ring-(--focus-ring) focus-visible:ring-offset-2 focus-visible:ring-offset-(--bg-primary) focus-visible:outline-none"
+						aria-label="Open RSS feed"
+						title="Open RSS feed"
+						target="_blank"
+					>
+						<i className="i-mingcute-rss-2-fill text-lg" aria-hidden="true" />
+					</Link>
 					<LanguageSwitch />
 					<ToggleThemeButton />
 				</div>
