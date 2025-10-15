@@ -1,60 +1,34 @@
-import type { Metadata } from 'next'
+import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { ContributionsCalendar } from '@/components/ContributionsCalendar'
 import IconBadge from '@/components/ui/IconBadge'
-import { siteConfig } from '@/lib/site'
-
-export const metadata: Metadata = {
-	title: 'FAN',
-	description: siteConfig.description,
-	alternates: {
-		canonical: '/',
-	},
-	openGraph: {
-		title: `${siteConfig.title} · ${siteConfig.tagline}`,
-		description: siteConfig.description,
-		url: siteConfig.url,
-		type: 'website',
-		images: [
-			{
-				url: siteConfig.ogImage.url,
-				width: siteConfig.ogImage.width,
-				height: siteConfig.ogImage.height,
-				alt: `${siteConfig.title} · ${siteConfig.tagline}`,
-			},
-		],
-	},
-	twitter: {
-		title: `${siteConfig.title} · ${siteConfig.tagline}`,
-		description: siteConfig.description,
-		images: [siteConfig.ogImage.url],
-	},
-}
 
 export default function Home() {
+	const t = useTranslations('home')
+
 	return (
 		<section className="space-y-8">
 			<div className="flex flex-col items-start gap-4 sm:flex-row sm:items-end sm:gap-6">
 				<Image
 					src="/avatar.jpeg"
-					alt="FAN's avatar"
+					alt={t('avatarAlt')}
 					width={416}
 					height={416}
 					className="size-32 rounded-full border-2 border-(--border-subtle) bg-(--surface-card)"
 				/>
 				<div className="space-y-1 text-left">
 					<h1 className="text-4xl font-bold text-(--text-primary)">
-						Hi, I&apos;m FAN 👋
+						{t('title')}
 					</h1>
 					<p className="text-xl leading-relaxed text-(--text-secondary)">
-						I&apos;m striving to be a great front-end developer...
+						{t('description')}
 					</p>
 				</div>
 			</div>
 
 			<div className="space-y-4">
 				<h2 className="text-2xl font-semibold text-(--text-primary)">
-					Tech Stack
+					{t('Tech Stack')}
 				</h2>
 				<div className="flex flex-wrap gap-2 text-(--text-secondary)">
 					<IconBadge variant="tech" icon="i-devicon-html5" text="HTML" />
@@ -72,7 +46,7 @@ export default function Home() {
 			</div>
 			<div className="space-y-4">
 				<h2 className="text-2xl font-semibold text-(--text-primary)">
-					Get in Touch
+					{t('Get in Touch')}
 				</h2>
 				<div className="flex flex-wrap gap-3 text-(--text-secondary)">
 					<IconBadge
@@ -103,7 +77,7 @@ export default function Home() {
 			</div>
 			<div className="space-y-4">
 				<h2 className="text-2xl font-semibold text-(--text-primary)">
-					Github Contributions
+					{t('Github Contributions')}
 				</h2>
 				<ContributionsCalendar username="iitsfan" />
 			</div>

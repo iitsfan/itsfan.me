@@ -1,13 +1,14 @@
 'use client'
 
 import type { Locale } from '@/i18n/config'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { localeCookieName, localeOptions } from '@/i18n/config'
 import { cn } from '@/lib/utils'
 
 export default function LanguageSwitch() {
+	const t = useTranslations('aria lable')
 	const [isOpen, setIsOpen] = useState(false)
 	const locale = useLocale()
 	const router = useRouter()
@@ -55,6 +56,7 @@ export default function LanguageSwitch() {
 	}
 
 	const currentLabel = localeOptions.find(option => option.value === locale)?.label ?? locale
+	const buttonLabel = t('languageSwitchButton', { current: currentLabel })
 
 	return (
 		<div className="relative" ref={menuRef}>
@@ -69,8 +71,8 @@ export default function LanguageSwitch() {
 				)}
 				aria-haspopup="true"
 				aria-expanded={isOpen}
-				aria-label={`Switch language (current: ${currentLabel})`}
-				title={`Switch language (current: ${currentLabel})`}
+				aria-label={buttonLabel}
+				title={buttonLabel}
 			>
 				<i className="i-mingcute-translate-2-fill text-lg" aria-hidden="true" />
 			</button>

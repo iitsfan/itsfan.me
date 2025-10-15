@@ -1,39 +1,38 @@
 import type { Metadata } from 'next'
+import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import PageTitle from '@/components/layouts/pageTitle'
 import MomentsList from '@/components/momentsList'
 import { siteConfig } from '@/lib/site'
 
-export const metadata: Metadata = {
-	title: 'Moments',
-	description: 'Sharing random thoughts and everyday ramblings.',
-	alternates: {
-		canonical: '/moments',
-	},
-	openGraph: {
-		title: 'Moments',
-		description: 'Sharing random thoughts and everyday ramblings.',
-		url: `${siteConfig.url}/moments`,
-		type: 'website',
-		images: [
-			{
-				url: siteConfig.ogImage.url,
-				width: siteConfig.ogImage.width,
-				height: siteConfig.ogImage.height,
-				alt: 'Moments',
-			},
-		],
-	},
-	twitter: {
-		title: 'Moments',
-		description: 'Sharing random thoughts and everyday ramblings.',
-		images: [siteConfig.ogImage.url],
-	},
+export async function generateMetadata(): Promise<Metadata> {
+	const t = await getTranslations('moments.meta')
+
+	return {
+		title: t('title'),
+		description: t('description'),
+		alternates: {
+			canonical: '/moments',
+		},
+		openGraph: {
+			title: `${t('title')} - FAN`,
+			description: t('description'),
+			url: `${siteConfig.url}/moments`,
+			type: 'website',
+		},
+		twitter: {
+			title: `${t('title')} - FAN`,
+			description: t('description'),
+		},
+	}
 }
 
 export default function Moments() {
+	const t = useTranslations('moments')
+
 	return (
 		<>
-			<PageTitle title="📸 Moments" />
+			<PageTitle title={t('title')} />
 			<MomentsList />
 		</>
 	)

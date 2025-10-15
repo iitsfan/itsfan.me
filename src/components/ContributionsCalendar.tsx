@@ -2,14 +2,16 @@
 
 import type { Props as ActivityCalendarProps, ThemeInput } from 'react-activity-calendar'
 import type { Activity, ContributionsCalendarProps } from '@/types'
+import { useTranslations } from 'next-intl'
 import React, { useEffect, useState } from 'react'
 import { ActivityCalendar } from 'react-activity-calendar'
 import { Tooltip } from 'react-tooltip'
 
 export function ContributionsCalendar({ username }: ContributionsCalendarProps) {
+	const t = useTranslations('calendar')
 	const [data, setData] = useState<Activity[]>([])
 	const [loading, setLoading] = useState(true)
-	const [labelInfo, setLabelInfo] = useState('')
+	const [labelInfo, setLabelInfo] = useState(t('noContributions'))
 
 	useEffect(() => {
 		const fetchContributions = async (): Promise<void> => {
@@ -21,7 +23,8 @@ export function ContributionsCalendar({ username }: ContributionsCalendarProps) 
 				if (response.ok) {
 					const contributions: Activity[] = await response.json()
 					setData(contributions)
-					setLabelInfo('{{count}} contributions in the last year')
+					const totalCount = contributions.reduce((sum, item) => sum + item.count, 0)
+					setLabelInfo(t('totalCount', { count: totalCount }))
 				}
 				else {
 					const fallbackData: Activity[] = [
@@ -37,11 +40,11 @@ export function ContributionsCalendar({ username }: ContributionsCalendarProps) 
 						},
 					]
 					setData(fallbackData)
-					setLabelInfo('No contributions found :(')
+					setLabelInfo(t('noContributions'))
 				}
 			}
 			catch (error: any) {
-				setLabelInfo(error.message || 'No contributions found :(')
+				setLabelInfo(error?.message ?? t('noContributions'))
 			}
 			finally {
 				setLoading(false)
@@ -49,7 +52,7 @@ export function ContributionsCalendar({ username }: ContributionsCalendarProps) 
 		}
 
 		fetchContributions()
-	}, [username])
+	}, [username, t])
 
 	const theme: ThemeInput = {
 		light: [
@@ -79,7 +82,10 @@ export function ContributionsCalendar({ username }: ContributionsCalendarProps) 
 		renderBlock: (block, activity) =>
 			React.cloneElement(block, {
 				'data-tooltip-id': 'calendar-tooltip',
-				'data-tooltip-html': `${activity.count} activities on ${activity.date}`,
+				'data-tooltip-html': t('tooltip', {
+					count: activity.count,
+					date: activity.date,
+				}),
 			}),
 	}
 

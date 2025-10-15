@@ -33,12 +33,11 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
 	const description = post.description ?? siteConfig.description
 	const url = `${siteConfig.url}/posts/${post.slug}`
 	const publishedTime = new Date(post.date).toISOString()
-	const categories = [post.category, ...(post.tags ?? [])].filter(Boolean)
 
 	return {
 		title: post.title,
 		description,
-		keywords: categories,
+		keywords: post.category,
 		alternates: {
 			canonical: `/posts/${post.slug}`,
 		},
@@ -51,7 +50,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
 			type: 'article',
 			publishedTime,
 			modifiedTime: publishedTime,
-			tags: categories,
+			tags: post.category,
 			images: [
 				{
 					url: siteConfig.ogImage.url,

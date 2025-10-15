@@ -1,39 +1,37 @@
 import type { Metadata } from 'next'
 import { posts } from '#site/content'
 import dayjs from 'dayjs'
+import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import Link from 'next/link'
 import React from 'react'
 import PageTitle from '@/components/layouts/pageTitle'
 import { siteConfig } from '@/lib/site'
 
-export const metadata: Metadata = {
-	title: 'Posts',
-	description: 'A place to share and take notes, hoping to create value someday.',
-	alternates: {
-		canonical: '/posts',
-	},
-	openGraph: {
-		title: 'Posts',
-		description: 'A place to share and take notes, hoping to create value someday.',
-		url: `${siteConfig.url}/posts`,
-		type: 'website',
-		images: [
-			{
-				url: siteConfig.ogImage.url,
-				width: siteConfig.ogImage.width,
-				height: siteConfig.ogImage.height,
-				alt: 'Posts',
-			},
-		],
-	},
-	twitter: {
-		title: 'FAN',
-		description: 'A place to share and take notes, hoping to create value someday.',
-		images: [siteConfig.ogImage.url],
-	},
+export async function generateMetadata(): Promise<Metadata> {
+	const t = await getTranslations('posts.meta')
+
+	return {
+		title: t('title'),
+		description: t('description'),
+		alternates: {
+			canonical: '/posts',
+		},
+		openGraph: {
+			title: `${t('title')} - FAN`,
+			description: t('description'),
+			url: `${siteConfig.url}/posts`,
+		},
+		twitter: {
+			title: `${t('title')} - FAN`,
+			description: t('description'),
+		},
+	}
 }
 
 export default function Posts() {
+	const t = useTranslations('posts')
+
 	const sortedPosts = posts.sort((a, b) =>
 		new Date(b.date).getTime() - new Date(a.date).getTime(),
 	)
@@ -51,7 +49,7 @@ export default function Posts() {
 
 	return (
 		<>
-			<PageTitle title="📋 Posts" />
+			<PageTitle title={t('title')} />
 
 			<div className="space-y-8">
 				{years.map(year => (

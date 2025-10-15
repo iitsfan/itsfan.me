@@ -1,10 +1,12 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
 import Navigation from './Navigation'
 
 export default function Header() {
+	const t = useTranslations('aria lable')
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
 
 	const toggleMenu = () => {
@@ -38,7 +40,7 @@ export default function Header() {
 								'focus-visible:ring-2 focus-visible:ring-(--focus-ring) focus-visible:ring-offset-2 focus-visible:ring-offset-(--bg-primary) focus-visible:outline-none',
 							)}
 							aria-expanded={isMenuOpen}
-							aria-label={isMenuOpen ? 'close nav menu' : 'open nav menu'}
+							aria-label={isMenuOpen ? t('navToggleClose') : t('navToggleOpen')}
 						>
 							<i
 								className={cn(

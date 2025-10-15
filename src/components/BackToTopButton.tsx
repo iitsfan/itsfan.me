@@ -1,11 +1,14 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
 
 const SCROLL_THRESHOLD = 320
 
 export default function BackToTopButton() {
+	const t = useTranslations('aria lable')
+
 	const [isVisible, setIsVisible] = useState(false)
 
 	useEffect(() => {
@@ -30,7 +33,7 @@ export default function BackToTopButton() {
 		<button
 			type="button"
 			onClick={handleClick}
-			aria-label="back to top"
+			aria-label={t('backToTop')}
 			className={cn(
 				'fixed right-4 bottom-6 z-40 flex size-11 cursor-pointer items-center justify-center rounded-lg border border-(--border-subtle)',
 				'bg-(--surface-card) text-(--text-secondary) shadow-(--shadow-soft) transition-all duration-300',

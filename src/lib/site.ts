@@ -3,7 +3,6 @@ const OG_IMAGE = `${SITE_URL}/avatar.jpeg`
 
 export const siteConfig = {
 	title: 'FAN',
-	tagline: 'Keep Running...',
 	description: 'FAN\'S BLOG',
 	url: SITE_URL,
 	locale: 'zh_CN',

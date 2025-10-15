@@ -1,8 +1,10 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 
 export default function ToggleThemeButton() {
+	const t = useTranslations('aria lable')
 	const { theme, setTheme } = useTheme()
 
 	const toggleTheme = () => {
@@ -13,7 +15,7 @@ export default function ToggleThemeButton() {
 		<button
 			onClick={toggleTheme}
 			className="flex cursor-pointer items-center justify-center rounded-md bg-transparent p-1 text-(--text-secondary) transition-colors duration-300 hover:bg-(--accent-soft)/30 hover:text-(--accent-strong) focus-visible:ring-2 focus-visible:ring-(--focus-ring) focus-visible:ring-offset-2 focus-visible:ring-offset-(--bg-primary) focus-visible:outline-none"
-			aria-label="toogle theme"
+			aria-label={t('themeToggle')}
 		>
 			{theme === 'light'
 				? (

@@ -1,42 +1,41 @@
 import type { Metadata } from 'next'
 import { friends } from '#site/content'
+import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import Image from 'next/image'
 import PageTitle from '@/components/layouts/pageTitle'
 import { siteConfig } from '@/lib/site'
 
-export const metadata: Metadata = {
-	title: 'Friends',
-	description: 'Friends on the internet.',
-	alternates: {
-		canonical: '/friends',
-	},
-	openGraph: {
-		title: 'Friends',
-		description: 'Friends on the internet.',
-		url: `${siteConfig.url}/friends`,
-		type: 'website',
-		images: [
-			{
-				url: siteConfig.ogImage.url,
-				width: siteConfig.ogImage.width,
-				height: siteConfig.ogImage.height,
-				alt: 'Friends',
-			},
-		],
-	},
-	twitter: {
-		title: 'Friends',
-		description: 'Friends on the internet.',
-		images: [siteConfig.ogImage.url],
-	},
+export async function generateMetadata(): Promise<Metadata> {
+	const t = await getTranslations('friends.meta')
+
+	return {
+		title: t('title'),
+		description: t('description'),
+		alternates: {
+			canonical: '/friends',
+		},
+		openGraph: {
+			title: `${t('title')} - FAN`,
+			description: t('description'),
+			url: `${siteConfig.url}/friends`,
+			type: 'website',
+		},
+		twitter: {
+			title: `${t('title')} - FAN`,
+			description: t('description'),
+		},
+	}
 }
 
 export default function Friends() {
+	const t = useTranslations('friends')
+
 	const friendsData = friends[0]
 
 	return (
 		<>
-			<PageTitle title="🧸 Friends" />
+			<PageTitle title={t('title')} />
 
 			<div className="mt-8 mb-6 grid-flow-row grid-cols-2 gap-x-7 gap-y-5 sm:grid">
 				{friendsData.links.map(link => (

@@ -1,22 +1,23 @@
 'use client'
 
 import type { Moment } from '@/types/moment'
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
 import mediumZoom from 'medium-zoom'
+import { useFormatter, useTranslations } from 'next-intl'
 import Image from 'next/image'
-import { useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import IconBadge from '@/components/ui/IconBadge'
-import 'dayjs/locale/zh-cn'
-
-dayjs.extend(relativeTime)
 
 interface MomentCardProps {
 	item: Moment
 }
 
 export default function MomentCard({ item }: MomentCardProps) {
+	const t = useTranslations('moments.list')
 	const imagesContainerRef = useRef<HTMLDivElement | null>(null)
+	const formatter = useFormatter()
+	const relativeTimeLabel = useMemo(() => {
+		return formatter.relativeTime(new Date(item.createdAt), new Date())
+	}, [formatter, item.createdAt])
 
 	useEffect(() => {
 		if (!imagesContainerRef.current)
@@ -40,7 +41,7 @@ export default function MomentCard({ item }: MomentCardProps) {
 					@FAN
 				</h2>
 				<time className="flex items-center text-sm text-(--text-tertiary)">
-					{dayjs(item.createdAt).fromNow()}
+					{relativeTimeLabel}
 				</time>
 			</div>
 			<div className="my-3 h-px w-full bg-(--border-subtle) opacity-60" aria-hidden="true" />
@@ -60,7 +61,7 @@ export default function MomentCard({ item }: MomentCardProps) {
 									src={image}
 									width={256}
 									height={256}
-									alt="Moment image"
+									alt={t('image alt')}
 								/>
 							))}
 						</div>

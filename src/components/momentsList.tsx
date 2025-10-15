@@ -1,19 +1,23 @@
 'use client'
 
 import type { Moment, MomentListResponse } from '@/types/moment'
+import { useTranslations } from 'next-intl'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import MomentCard from '@/components/momentCard'
 import { cn } from '@/lib/utils'
+
+type ErrorKey = 'unauthorized' | 'requestFailed' | 'unknown'
 
 const LIMIT = 5
 const MAX_RETRY = 3
 
 export default function MomentsList() {
+	const t = useTranslations('moments.list')
 	const [moments, setMoments] = useState<Moment[]>([])
 	const [offset, setOffset] = useState(0)
 	const [hasMore, setHasMore] = useState(true)
 	const [isLoading, setIsLoading] = useState(false)
-	const [error, setError] = useState<string | null>(null)
+	const [error, setError] = useState<ErrorKey | null>(null)
 	const [retryCount, setRetryCount] = useState(0)
 	const observerRef = useRef<IntersectionObserver | null>(null)
 	const loadMoreRef = useRef<HTMLDivElement>(null)
@@ -75,19 +79,18 @@ export default function MomentsList() {
 
 			setRetryCount(prev => Math.min(prev + 1, MAX_RETRY))
 
+			let messageKey: ErrorKey = 'unknown'
+
 			if (error instanceof Error) {
 				if (error.message === 'unauthorized') {
-					setError('Unauthorized loading moments :(')
-					return
+					messageKey = 'unauthorized'
 				}
-
-				if (error.message === 'request-failed') {
-					setError('Loading error :(')
-					return
+				else if (error.message === 'request-failed') {
+					messageKey = 'requestFailed'
 				}
 			}
 
-			setError('Loading error,')
+			setError(messageKey)
 		}
 		finally {
 			setIsLoading(false)
@@ -145,15 +148,15 @@ export default function MomentsList() {
 					className="mt-4 flex flex-row items-center justify-center gap-x-1 text-sm text-(--text-secondary)"
 					role="alert"
 				>
-					<span>{error}</span>
+					<span>{t(`errors.${error}`)}</span>
 					{hasMore && (
 						<button
 							type="button"
-							className="cursor-pointer text-sm text-(--accent) no-underline hover:text-(--accent-strong)"
+							className="cursor-pointer text-sm text-(--accent) no-underline transition-colors duration-200 hover:text-(--accent-strong)"
 							onClick={handleRetry}
 							disabled={isLoading}
 						>
-							reload moments.
+							{t('retry')}
 						</button>
 					)}
 				</div>
@@ -163,13 +166,19 @@ export default function MomentsList() {
 				<div
 					ref={loadMoreRef}
 					className={cn(
-						'mt-6 flex items-center justify-center text-sm',
+						'mt-6 flex items-center justify-center gap-1 text-sm',
 						'text-(--text-tertiary)',
 						error ? 'hidden' : undefined,
 					)}
 					aria-live="polite"
 				>
-					{isLoading && <span>Loading...</span>}
+					{ isLoading
+						&& (
+							<>
+								<i className="i-mingcute-loading-fill animate-spin text-lg text-(--accent)" />
+								<span>{t('loading')}</span>
+							</>
+						)}
 				</div>
 			)}
 
