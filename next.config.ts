@@ -6,15 +6,15 @@ const nextConfig: NextConfig = {
 		return [
 			{
 				source: '/rss',
-				destination: '/feed.xml',
+				destination: '/feed',
 			},
 			{
 				source: '/rss.xml',
-				destination: '/feed.xml',
+				destination: '/feed',
 			},
 			{
-				source: '/feed',
-				destination: '/feed.xml',
+				source: '/feed.xml',
+				destination: '/feed',
 			},
 		]
 	},
