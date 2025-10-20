@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils'
 const SCROLL_THRESHOLD = 320
 
 export default function BackToTopButton() {
-	const t = useTranslations('aria lable')
+	const t = useTranslations('aria label')
 
 	const [isVisible, setIsVisible] = useState(false)
 

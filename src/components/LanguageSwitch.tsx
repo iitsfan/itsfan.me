@@ -8,7 +8,7 @@ import { localeCookieName, localeOptions } from '@/i18n/config'
 import { cn } from '@/lib/utils'
 
 export default function LanguageSwitch() {
-	const t = useTranslations('aria lable')
+	const t = useTranslations('aria label')
 	const [isOpen, setIsOpen] = useState(false)
 	const locale = useLocale()
 	const router = useRouter()

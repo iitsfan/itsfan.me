@@ -1,5 +1,5 @@
 {
-	"navgation": {
+	"navigation": {
 		"posts": "文章",
 		"moments": "碎碎念",
 		"friends": "朋友们",
@@ -10,7 +10,7 @@
 		"noContributions": "暂无贡献记录 :(",
 		"tooltip": "在 {date} 有 {count} 次活动"
 	},
-	"aria lable": {
+	"aria label": {
 		"backToTop": "返回顶部",
 		"navMenu": "导航菜单",
 		"navItem": "跳转到 {label}",

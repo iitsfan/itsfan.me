@@ -1,5 +1,5 @@
 {
-	"navgation": {
+	"navigation": {
 		"posts": "Posts",
 		"moments": "Moments",
 		"friends": "Friends",
@@ -10,7 +10,7 @@
 		"noContributions": "No contributions found :(",
 		"tooltip": "{count} activities on {date}"
 	},
-	"aria lable": {
+	"aria label": {
 		"backToTop": "Back to top",
 		"navMenu": "Navigation menu",
 		"navItem": "Go to {label}",

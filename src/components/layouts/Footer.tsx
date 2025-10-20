@@ -4,7 +4,7 @@ import LanguageSwitch from '@/components/LanguageSwitch'
 import ToggleThemeButton from '@/components/toggleThemeButton'
 
 export default function Footer() {
-	const t = useTranslations('aria lable')
+	const t = useTranslations('aria label')
 
 	return (
 		<footer className="mb-2 flex w-full items-center justify-center px-4 sm:px-0">

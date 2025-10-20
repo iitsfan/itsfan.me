@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 import Navigation from './Navigation'
 
 export default function Header() {
-	const t = useTranslations('aria lable')
+	const t = useTranslations('aria label')
 	const [isMenuOpen, setIsMenuOpen] = useState(false)
 
 	const toggleMenu = () => {

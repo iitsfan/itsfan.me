@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 
 export default function ToggleThemeButton() {
-	const t = useTranslations('aria lable')
+	const t = useTranslations('aria label')
 	const { theme, setTheme } = useTheme()
 
 	const toggleTheme = () => {

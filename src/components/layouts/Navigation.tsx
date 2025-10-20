@@ -25,8 +25,8 @@ function NavigationItem(props: ComponentProps<typeof Link> & { onClick?: () => v
 }
 
 export default function Navigation({ isOpenMenu, onNavClick }: NavigationProps) {
-	const t = useTranslations('navgation')
-	const aria = useTranslations('aria lable')
+	const t = useTranslations('navigation')
+	const aria = useTranslations('aria label')
 
 	const navigationItems = [
 		{ href: '/posts', label: t('posts') },
