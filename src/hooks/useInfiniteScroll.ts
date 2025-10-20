@@ -59,6 +59,7 @@ export function useInfiniteScroll<T>({
 		error: null as Error | null,
 		retryCount: 0,
 	})
+	const loadingRef = useRef(false)
 
 	useEffect(() => {
 		stateRef.current.isLoading = isLoading
@@ -76,7 +77,7 @@ export function useInfiniteScroll<T>({
 			const isRetry = options?.isRetry ?? false
 			const state = stateRef.current
 
-			if (state.isLoading || !state.hasMore)
+			if (loadingRef.current || state.isLoading || !state.hasMore)
 				return
 
 			if (state.error && !isRetry)
@@ -88,19 +89,23 @@ export function useInfiniteScroll<T>({
 			if (isRetry)
 				setError(null)
 
+			loadingRef.current = true
+			stateRef.current.isLoading = true
 			setIsLoading(true)
 
 			try {
-				const data = await fetchFn(state.offset, limit)
+				const currentOffset = state.offset
+				const data = await fetchFn(currentOffset, limit)
 
 				setItems(prev => [...prev, ...data.data])
 
-				stateRef.current.offset += data.data.length
+				const newOffset = currentOffset + data.data.length
+				stateRef.current.offset = newOffset
 				setRetryCount(0)
 				setError(null)
 
 				// Calculate total items loaded
-				const totalItems = state.offset + data.data.length
+				const totalItems = newOffset
 				const reachedEnd = data.data.length === 0 || totalItems >= data.total
 
 				if (reachedEnd) {
@@ -119,6 +124,8 @@ export function useInfiniteScroll<T>({
 				onError?.(error)
 			}
 			finally {
+				loadingRef.current = false
+				stateRef.current.isLoading = false
 				setIsLoading(false)
 			}
 		},
