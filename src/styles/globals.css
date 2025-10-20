@@ -58,11 +58,13 @@
     --calendar-level-4: rgba(57, 211, 83, 1);
 }
 
-html,body {
+html,
+body {
     font-family: var(--font-sans), var(--font-sans-sc), ui-sans-serif, system-ui, sans-serif;
     color: var(--text-primary);
     background-color: var(--bg-primary);
     scroll-behavior: smooth;
+    text-autospace: normal;
 }
 
 /* React Activity Calendar styles */
