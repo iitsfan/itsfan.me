@@ -34,6 +34,7 @@ export default defineConfig({
 					slug: s.string(),
 					draft: s.boolean().default(false),
 					content: s.markdown(),
+					toc: s.toc(),
 				})
 				.transform(data => ({ ...data, permalink: `/${data.slug}` })),
 		},

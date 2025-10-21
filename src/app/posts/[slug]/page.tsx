@@ -4,6 +4,7 @@ import dayjs from 'dayjs'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { MarkdownContent } from '@/components/MarkdownContent'
+import { PostToc } from '@/components/PostToc'
 import IconBadge from '@/components/ui/IconBadge'
 import { siteConfig } from '@/lib/site'
 
@@ -110,8 +111,8 @@ export default async function PostPage({ params }: PostPageProps) {
 				<i className="i-mingcute-back-fill" />
 				Back
 			</Link>
-			<article className="prose prose-lg dark:prose-invert max-w-none">
-				<section className="mb-10 space-y-3">
+			<article className="relative">
+				<section className="mb-10 space-y-2">
 					<h1 className="text-3xl font-extrabold text-(--text-primary)">
 						{post.title}
 					</h1>
@@ -127,12 +128,13 @@ export default async function PostPage({ params }: PostPageProps) {
 								variant="category"
 							/>
 						</div>
-
 					</div>
-
 				</section>
 
-				<MarkdownContent content={post.content} className="markdown" />
+				<section className="relative">
+					<MarkdownContent content={post.content} className="markdown" />
+					<PostToc toc={post.toc} />
+				</section>
 
 				<script
 					type="application/ld+json"
