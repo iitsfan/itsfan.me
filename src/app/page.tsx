@@ -14,6 +14,7 @@ export default function Home() {
 					alt={t('avatarAlt')}
 					width={416}
 					height={416}
+					priority
 					className="size-32 rounded-full border-2 border-(--border-subtle) bg-(--surface-card)"
 				/>
 				<div className="space-y-1 text-left">
