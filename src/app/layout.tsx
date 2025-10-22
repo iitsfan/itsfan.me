@@ -5,6 +5,7 @@ import { JetBrains_Mono, Noto_Sans, Noto_Sans_SC } from 'next/font/google'
 import BackToTopButton from '@/components/BackToTopButton'
 import Footer from '@/components/layouts/Footer'
 import Header from '@/components/layouts/Header'
+import UmamiAnalytics from '@/components/UmamiAnalytics'
 import { siteConfig } from '@/lib/site'
 import { cn } from '@/lib/utils'
 import Providers from './providers'
@@ -102,8 +103,9 @@ export default async function RootLayout({
 								{children}
 							</div>
 						</main>
-						<BackToTopButton />
 						<Footer />
+						<BackToTopButton />
+						<UmamiAnalytics />
 					</NextIntlClientProvider>
 				</Providers>
 			</body>
