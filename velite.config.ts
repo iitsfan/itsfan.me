@@ -36,7 +36,7 @@ export default defineConfig({
 					content: s.markdown(),
 					toc: s.toc(),
 				})
-				.transform(data => ({ ...data, permalink: `/${data.slug}` })),
+				.transform(data => ({ ...data, permalink: `/posts/${data.slug}` })),
 		},
 		friends: {
 			name: 'friends',
