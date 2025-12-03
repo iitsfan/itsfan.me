@@ -3,9 +3,8 @@
 import type { Props as ActivityCalendarProps, ThemeInput } from 'react-activity-calendar'
 import type { Activity, ContributionsCalendarProps } from '@/types'
 import { useTranslations } from 'next-intl'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ActivityCalendar } from 'react-activity-calendar'
-import { Tooltip } from 'react-tooltip'
 
 export function ContributionsCalendar({ username }: ContributionsCalendarProps) {
 	const t = useTranslations('calendar')
@@ -75,24 +74,21 @@ export function ContributionsCalendar({ username }: ContributionsCalendarProps) 
 		data,
 		loading,
 		theme,
-		hideMonthLabels: true,
+		showMonthLabels: false,
 		labels: {
 			totalCount: labelInfo,
 		},
-		renderBlock: (block, activity) =>
-			React.cloneElement(block, {
-				'data-tooltip-id': 'calendar-tooltip',
-				'data-tooltip-html': t('tooltip', {
-					count: activity.count,
-					date: activity.date,
-				}),
-			}),
+		tooltips: {
+			activity: {
+				text: activity => t('tooltip', { count: activity.count, date: activity.date }),
+				withArrow: true,
+			},
+		},
 	}
 
 	return (
 		<div className="isolate">
 			<ActivityCalendar {...activityCalendarProps} />
-			<Tooltip id="calendar-tooltip" />
 		</div>
 	)
 }
