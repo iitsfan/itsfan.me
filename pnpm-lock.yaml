@@ -93,6 +93,9 @@ importers:
       '@iconify-json/simple-icons':
         specifier: ^1.2.61
         version: 1.2.61
+      '@prisma/client-runtime-utils':
+        specifier: ^7.0.1
+        version: 7.0.1
       '@shikijs/transformers':
         specifier: ^3.19.0
         version: 3.19.0

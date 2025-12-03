@@ -1,17 +1,21 @@
-import type { PrismaConfig } from 'prisma'
-import { PrismaD1 } from '@prisma/adapter-d1'
+import { defineConfig, env } from 'prisma/config'
 import 'dotenv/config'
 
-export default {
-	experimental: {
-		adapter: true,
-	},
+/**
+ * Prisma ORM v7 Configuration
+ * @see https://www.prisma.io/docs/orm/reference/prisma-config-reference
+ *
+ * Breaking changes from v6 to v7:
+ * - Removed: experimental.adapter field (adapters work automatically in v7)
+ * - Removed: adapter() function (migrations work automatically)
+ * - Added: datasource.url configuration (moved from schema.prisma)
+ */
+export default defineConfig({
 	schema: 'prisma/schema.prisma',
-	async adapter() {
-		return new PrismaD1({
-			CLOUDFLARE_D1_TOKEN: process.env.CLOUDFLARE_D1_TOKEN!,
-			CLOUDFLARE_ACCOUNT_ID: process.env.CLOUDFLARE_ACCOUNT_ID!,
-			CLOUDFLARE_DATABASE_ID: process.env.CLOUDFLARE_DATABASE_ID!,
-		})
+	migrations: {
+		path: 'prisma/migrations',
 	},
-} satisfies PrismaConfig
+	datasource: {
+		url: env('DATABASE_URL'),
+	},
+})

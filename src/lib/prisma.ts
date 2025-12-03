@@ -6,8 +6,13 @@ const globalForPrisma = globalThis as unknown as {
 }
 
 /**
- * Prisma D1 Adapter Configuration
+ * Prisma D1 Adapter Configuration (Prisma ORM v7)
  * Uses Cloudflare D1 REST API for both development and production
+ *
+ * In Prisma ORM v7, driver adapters work automatically without additional
+ * configuration in prisma.config.ts. The adapter is initialized here and
+ * passed to PrismaClient.
+ *
  * @see https://www.prisma.io/docs/orm/overview/databases/cloudflare-d1
  */
 const adapter = new PrismaD1({
