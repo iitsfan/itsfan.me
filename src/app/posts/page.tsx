@@ -51,35 +51,34 @@ export default function Posts() {
 		<>
 			<PageTitle title={t('title')} />
 
-			<div className="space-y-8">
-				{years.map(year => (
-					<div key={year}>
-						<div className="pointer-events-none relative h-16 select-none">
-							<span
-								className="absolute top-0 left-0 text-9xl leading-none font-black text-(--accent) italic opacity-[0.06] select-none"
-							>
-								{year}
-							</span>
-						</div>
-
-						<div className="relative -mt-4 space-y-3">
-							{groupedPosts[year].map(post => (
-								<div key={post.slug} className="flex items-center justify-between text-base text-(--text-secondary)">
-									<Link
-										href={`/posts/${post.slug}`}
-										className="cursor-pointer font-semibold text-(--text-primary) transition-colors duration-300 hover:text-(--accent-strong)"
-									>
-										{post.title}
-									</Link>
-									<time className="ml-4 shrink-0 text-(--text-tertiary)">
-										{ dayjs(String(post.date)).format('YYYY/MM/DD') }
-									</time>
-								</div>
-							))}
-						</div>
+			{years.map(year => (
+				<div key={year}>
+					<div className="pointer-events-none relative h-16 select-none">
+						<span
+							className="absolute top-0 left-0 text-9xl leading-none font-black text-(--accent) italic opacity-[0.06] select-none"
+						>
+							{year}
+						</span>
 					</div>
-				))}
-			</div>
+
+					<div className="relative -mt-4 space-y-4">
+						{groupedPosts[year].map(post => (
+							<div key={post.slug} className="flex items-center justify-between text-base text-(--text-secondary)">
+								<Link
+									href={`/posts/${post.slug}`}
+									className="cursor-pointer font-semibold text-(--text-primary) transition-colors duration-300 hover:text-(--accent-strong)"
+								>
+									{post.title}
+								</Link>
+								<time className="ml-4 shrink-0 text-(--text-tertiary)">
+									{ dayjs(String(post.date)).format('YYYY/MM/DD') }
+								</time>
+							</div>
+						))}
+					</div>
+				</div>
+			))}
+
 		</>
 	)
 }

@@ -17,7 +17,7 @@ const variantStyles: Record<IconBadgeVariant, string> = {
 	social: 'border-b-2 border-dashed border-b-(--accent) font-semibold text-(--accent) hover:border-b-(--accent-strong) hover:text-(--accent-strong)',
 	moment: 'font-semibold text-(--accent-strong) hover:bg-(--accent-soft)/25 px-2 py-0.5 rounded',
 	tag: 'inline-flex cursor-default items-center justify-start gap-0 font-medium text-(--accent) transition-colors duration-200 hover:text-(--accent-strong)',
-	category: 'inline-flex cursor-default items-center justify-start text-lg font-medium text-(--text-secondary) select-none transition-colors duration-200 hover:text-(--text-primary)',
+	category: 'inline-flex cursor-default items-center justify-start font-medium text-sm text-(--text-tertiary)',
 }
 
 export default function IconBadge({

@@ -107,24 +107,24 @@ export default async function PostPage({ params }: PostPageProps) {
 
 	return (
 		<>
-			<Link href="/posts" className="mb-4 flex cursor-pointer items-center gap-2 font-semibold text-(--text-secondary) transition-colors duration-200 hover:text-(--text-primary)">
-				<i className="i-mingcute-back-fill" />
-				Back
+			<Link href="/posts" className="mb-4 inline-flex cursor-pointer items-center gap-1.5 text-sm font-medium text-(--text-tertiary) transition-colors duration-200 hover:text-(--text-primary)">
+				<i className="i-mingcute-back-fill text-base" />
+				<span>Back</span>
 			</Link>
 			<article className="relative">
-				<section className="mb-10 space-y-2">
-					<h1 className="text-3xl font-extrabold text-(--text-primary)">
+				<section className="mb-8">
+					<h1 className="mb-4 text-xl leading-tight font-bold text-(--text-primary) sm:text-2xl">
 						{post.title}
 					</h1>
-					<div className="flex w-full items-center justify-start space-x-2">
-						<time className="text-lg font-medium text-(--text-secondary)">
+					<div className="flex flex-wrap items-center gap-3 text-sm text-(--text-tertiary)">
+						<time className="flex items-center font-medium">
 							{dayjs(post.date).format('YYYY/MM/DD')}
 						</time>
-						<span className="text-2xl text-(--text-tertiary)">·</span>
-						<div className="flex flex-wrap items-center">
+						<span className="text-(--border-subtle)">/</span>
+						<div className="flex flex-wrap items-center gap-2">
 							<IconBadge
 								key={post.category}
-								text={`#${post.category}`}
+								text={post.category}
 								variant="category"
 							/>
 						</div>

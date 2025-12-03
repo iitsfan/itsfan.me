@@ -94,7 +94,7 @@ export function PostToc({ toc }: PostTocProps) {
 						{item.title}
 					</a>
 					{item.items.length > 0 && (
-						<ol className="mt-2 space-y-2 border-l border-(--border-subtle)/70 pl-4">
+						<ol className="mt-1 space-y-1 border-l border-(--border-subtle)/70 pl-3">
 							{renderTocItems(item.items, currentNum)}
 						</ol>
 					)}
@@ -104,9 +104,9 @@ export function PostToc({ toc }: PostTocProps) {
 	}
 
 	return (
-		<aside className="absolute top-0 left-full ml-12 hidden h-full lg:block">
+		<aside className="absolute top-0 left-full ml-12 hidden h-full xl:block">
 			<nav className="sticky top-24 max-h-[calc(100vh-6rem)] overflow-y-auto">
-				<ol className="w-64 space-y-2 text-sm">
+				<ol className="w-64 space-y-1 text-sm">
 					{renderTocItems(toc)}
 				</ol>
 			</nav>

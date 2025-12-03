@@ -1,5 +1,5 @@
 .markdown {
-    @apply text-sm sm:text-base break-words font-medium text-(--text-secondary);
+    @apply text-sm wrap-break-word font-medium text-(--text-secondary);
 
     h1,
     h2,
@@ -7,7 +7,11 @@
     h4,
     h5,
     h6 {
-        @apply my-5 font-bold relative scroll-mt-14 sm:scroll-mt-22 text-(--text-primary) tracking-wide leading-tight;
+        @apply mt-8 mb-3 font-bold relative scroll-mt-20 text-(--text-primary) tracking-tight leading-snug;
+
+        &:first-child {
+            @apply mt-0;
+        }
 
         a.anchor {
             @apply relative block w-full cursor-pointer text-inherit no-underline;
@@ -32,43 +36,43 @@
 
     h1,
     h2 {
-        @apply text-xl sm:text-2xl;
+        @apply text-lg sm:text-xl;
     }
 
     h3,
     h4 {
-        @apply text-lg sm:text-xl;
+        @apply text-sm sm:text-base;
     }
 
     hr {
-        @apply my-6 mt-10 border-0 h-[1px] bg-(--border-subtle);
+        @apply my-8 h-px border-0 bg-linear-to-r from-transparent via-(--border-subtle) to-transparent;
     }
 
     p,
     li {
-        @apply my-4;
+        @apply my-4 leading-7;
     }
 
     ul:not(.contains-task-list) {
-        @apply my-4 pl-6 space-y-3;
+        @apply my-4 pl-5 space-y-1;
 
         li:not(.task-list-item) {
-            @apply relative;
+            @apply relative pl-1;
 
             &::before {
-                @apply absolute -left-4 top-0 text-(--text-tertiary) content-['•'];
+                @apply absolute -left-4 top-2.5 size-1.5 rounded-full bg-(--text-tertiary) content-[''];
             }
         }
 
         ul:not(.contains-task-list) {
-            @apply my-2 pl-4;
+            @apply my-1 pl-4;
 
             li:not(.task-list-item)::before {
-                @apply content-['◦'];
+                @apply bg-transparent border border-(--text-tertiary);
             }
 
             ul li:not(.task-list-item)::before {
-                @apply content-['▪'];
+                @apply bg-(--text-tertiary) rounded-none;
             }
         }
     }
@@ -77,40 +81,40 @@
         @apply list-none;
 
         input[type="checkbox"] {
-            @apply mr-2;
+            @apply mr-2 accent-(--accent);
         }
     }
 
     ol {
-        @apply my-4 pl-6 space-y-3 list-decimal;
+        @apply my-4 pl-5 space-y-1 list-decimal marker:text-(--text-tertiary) marker:font-medium;
 
         li {
-            @apply relative;
+            @apply relative pl-1;
         }
 
         ol {
-            @apply my-2 pl-4 list-decimal;
+            @apply my-1 pl-4 list-decimal;
         }
     }
 
     :not(h1, h2, h3, h4, h5, h6, ul, sup)>a {
-        @apply text-(--accent) transition cursor-pointer duration-300 underline underline-offset-4 decoration-solid decoration-(--accent-soft) hover:text-(--accent-strong) hover:decoration-(--accent-strong);
+        @apply font-medium text-(--accent) transition cursor-pointer duration-300 underline underline-offset-4 decoration-2 decoration-(--accent-soft) hover:text-(--accent-strong) hover:decoration-(--accent-strong);
     }
 
-    :not(pre)>code {
-        @apply inline-flex items-center bg-(--surface-muted) mx-1 px-2 py-0.5 rounded whitespace-pre transition-colors duration-300 text-sm font-medium text-(--text-secondary) border border-(--border-subtle);
+    /* :not(pre)>code {
+        @apply inline-flex items-center bg-(--surface-muted) mx-0.5 px-1 rounded-md whitespace-pre transition-colors duration-300 text-[0.85em] font-medium text-(--text-primary) border border-(--border-subtle)/50;
 
         a {
             @apply no-underline;
         }
-    }
+    } */
 
     kbd {
-        @apply inline-flex items-center bg-(--surface-muted) border border-(--border-subtle) mx-1 px-2 py-0.5 rounded text-xs font-mono font-semibold text-(--text-primary) transition-colors duration-300;
+        @apply inline-flex items-center bg-(--surface-muted) border border-(--border-subtle) mx-1 px-2 py-0.5 rounded text-xs font-mono font-semibold text-(--text-primary) shadow-sm border-b-2;
     }
 
     pre {
-        @apply bg-(--surface-muted) border border-(--border-subtle) rounded-lg overflow-auto my-5 p-4 text-(--text-secondary) shadow-sm;
+        @apply bg-(--surface-muted) border border-(--border-subtle) rounded-xl overflow-auto my-6 p-4 text-(--text-secondary) shadow-sm text-sm;
 
         &::-webkit-scrollbar-track,
         &::-webkit-scrollbar-corner {
@@ -123,12 +127,12 @@
     }
 
     blockquote {
-        @apply relative my-6 rounded-sm border-l-7 border-l-(--accent) px-4 py-0.5 text-(--text-secondary) bg-(--surface-card)/20 shadow-sm;
+        @apply relative my-6 rounded-r-lg border-l-3 border-l-(--accent) pl-5 pr-3 py-2 text-(--text-secondary) bg-(--surface-muted)/30 italic;
     }
 
     img,
     video {
-        @apply mt-8 block rounded;
+        @apply my-6 block rounded-lg shadow-sm mx-auto;
     }
 
     table {
