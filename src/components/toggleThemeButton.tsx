@@ -25,7 +25,7 @@ export default function ToggleThemeButton() {
 			aria-label={t('themeToggle')}
 		>
 			{mounted
-				?? (
+				&& (
 					<i
 						className={cn('text-lg', theme === 'light'
 							? 'i-mingcute-sun-line text-yellow-500'
