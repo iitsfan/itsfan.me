@@ -47,7 +47,7 @@ export default function MomentCard({ item }: MomentCardProps) {
 			<div className="my-3 h-px w-full bg-(--border-subtle) opacity-60" aria-hidden="true" />
 
 			<div className="pb-4">
-				<p className="overflow-hidden break-words whitespace-pre-wrap text-(--text-secondary)">
+				<p className="overflow-hidden wrap-break-word whitespace-pre-wrap text-(--text-secondary)">
 					{item.content}
 				</p>
 
