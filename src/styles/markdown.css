@@ -130,7 +130,6 @@
         @apply relative my-6 rounded-r-lg border-l-3 border-l-(--accent) pl-5 pr-3 py-2 text-(--text-secondary) bg-(--surface-muted)/30 italic;
     }
 
-    img,
     video {
         @apply my-6 block rounded-lg shadow-sm mx-auto;
     }
