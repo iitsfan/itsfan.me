@@ -3,7 +3,7 @@ import { posts } from '#site/content'
 import dayjs from 'dayjs'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { MarkdownContent } from '@/components/MarkdownContent'
+import { MDXContent } from '@/components/MDXContent'
 import { PostToc } from '@/components/PostToc'
 import IconBadge from '@/components/ui/IconBadge'
 import { siteConfig } from '@/lib/site'
@@ -132,7 +132,7 @@ export default async function PostPage({ params }: PostPageProps) {
 				</section>
 
 				<section className="relative">
-					<MarkdownContent content={post.content} className="markdown" />
+					<MDXContent code={post.content} className="markdown" />
 					<PostToc toc={post.toc} />
 				</section>
 
