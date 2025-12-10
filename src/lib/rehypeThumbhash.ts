@@ -1,0 +1,132 @@
+import type { Root } from 'hast'
+import crypto from 'node:crypto'
+import fs from 'node:fs/promises'
+import path from 'node:path'
+import sharp from 'sharp'
+import { rgbaToThumbHash, thumbHashToDataURL } from 'thumbhash'
+import { visit } from 'unist-util-visit'
+
+const MAX_THUMB_SIZE = 64
+const CACHE_DIR = '.next/cache/thumbhash'
+
+interface ThumbhashCache {
+	[hash: string]: {
+		width: number
+		height: number
+		blurDataURL: string
+	}
+}
+
+export function rehypeThumbhashPlaceholder() {
+	return async (tree: Root) => {
+		const tasks: Promise<void>[] = []
+		const cache = await loadCache()
+
+		visit(tree, 'element', (node) => {
+			if (node.tagName !== 'img') return
+			const rawSrc = typeof node.properties?.src === 'string' ? node.properties.src : null
+			if (!rawSrc) return
+
+			tasks.push((async () => {
+				const meta = await getPlaceholderMeta(rawSrc, cache)
+				if (!meta) return
+
+				const isGif = rawSrc.toLowerCase().endsWith('.gif')
+				node.properties = {
+					...(node.properties ?? {}),
+					width: node.properties?.width ?? meta.width,
+					height: node.properties?.height ?? meta.height,
+					...(isGif ? {} : { blurDataURL: meta.blurDataURL }),
+				}
+
+				// Update cache
+				if (meta.hash && !meta.fromCache) {
+					cache[meta.hash] = {
+						width: meta.width,
+						height: meta.height,
+						blurDataURL: meta.blurDataURL,
+					}
+				}
+			})())
+		})
+
+		await Promise.all(tasks)
+		await saveCache(cache)
+	}
+}
+
+async function getPlaceholderMeta(src: string, cache: ThumbhashCache) {
+	const normalizedSrc = src.replaceAll('%20', ' ')
+	try {
+		const buffer = await loadImageBuffer(normalizedSrc)
+
+		// Check cache by image content hash
+		const hash = crypto.createHash('sha256').update(buffer).digest('hex').slice(0, 16)
+		if (cache[hash]) {
+			return { ...cache[hash], hash, fromCache: true }
+		}
+
+		const image = sharp(buffer)
+		const meta = await image.metadata()
+
+		const { data, info } = await image
+			.resize({
+				width: MAX_THUMB_SIZE,
+				height: MAX_THUMB_SIZE,
+				fit: 'inside',
+				withoutEnlargement: true,
+			})
+			.ensureAlpha()
+			.raw()
+			.toBuffer({ resolveWithObject: true })
+
+		const thumbHash = rgbaToThumbHash(info.width, info.height, data)
+		const blurDataURL = thumbHashToDataURL(thumbHash)
+
+		return {
+			width: meta.width ?? info.width,
+			height: meta.height ?? info.height,
+			blurDataURL,
+			hash,
+			fromCache: false,
+		}
+	}
+	catch (error) {
+		console.warn(`[rehype-thumbhash] Failed to generate placeholder for ${normalizedSrc}:`, error)
+		return undefined
+	}
+}
+
+async function loadImageBuffer(src: string) {
+	if (/^https?:\/\//.test(src)) {
+		const res = await fetch(src)
+		if (!res.ok) {
+			throw new Error(`Failed to fetch remote image: ${src} (${res.status})`)
+		}
+		const arrayBuffer = await res.arrayBuffer()
+		return Buffer.from(arrayBuffer)
+	}
+
+	const normalized = src.startsWith('/') ? src.slice(1) : src
+	return fs.readFile(path.join(process.cwd(), 'public', normalized))
+}
+
+async function loadCache(): Promise<ThumbhashCache> {
+	const cachePath = path.join(process.cwd(), CACHE_DIR, 'metadata.json')
+	try {
+		const content = await fs.readFile(cachePath, 'utf-8')
+		return JSON.parse(content)
+	}
+	catch {
+		return {}
+	}
+}
+
+async function saveCache(cache: ThumbhashCache): Promise<void> {
+	const cacheDir = path.join(process.cwd(), CACHE_DIR)
+	await fs.mkdir(cacheDir, { recursive: true })
+	await fs.writeFile(
+		path.join(cacheDir, 'metadata.json'),
+		JSON.stringify(cache, null, 2),
+	)
+}

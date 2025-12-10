@@ -7,8 +7,10 @@ import {
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeSlug from 'rehype-slug'
+import rehypeUnwrapImages from 'rehype-unwrap-images'
 import remarkGfm from 'remark-gfm'
 import { defineConfig, s } from 'velite'
+import { rehypeThumbhashPlaceholder } from '@/lib/rehypeThumbhash'
 import { transformerCopyButton } from '@/lib/transformerCopyButton'
 
 export default defineConfig({
@@ -23,7 +25,7 @@ export default defineConfig({
 	collections: {
 		posts: {
 			name: 'posts',
-			pattern: 'posts/**/*.md',
+			pattern: 'posts/**/*.{md,mdx}',
 			schema: s
 				.object({
 					title: s.string().max(50),
@@ -33,7 +35,7 @@ export default defineConfig({
 					tags: s.array(s.string()).default([]),
 					slug: s.string(),
 					draft: s.boolean().default(false),
-					content: s.markdown(),
+					content: s.mdx(),
 					toc: s.toc(),
 				})
 				.transform(data => ({ ...data, permalink: `/posts/${data.slug}` })),
@@ -56,7 +58,7 @@ export default defineConfig({
 				}),
 		},
 	},
-	markdown: {
+	mdx: {
 		remarkPlugins: [remarkGfm],
 		rehypePlugins: [
 			rehypeSlug,
@@ -81,6 +83,8 @@ export default defineConfig({
 					],
 				},
 			],
+			rehypeUnwrapImages,
+			rehypeThumbhashPlaceholder,
 		],
 	},
 })

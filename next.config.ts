@@ -30,6 +30,8 @@ const nextConfig: NextConfig = {
 				hostname: 'imgs.itsfan.me',
 			},
 		],
+		// Only allow local IP access in development to prevent SSRF attacks in production
+		dangerouslyAllowLocalIP: process.env.NODE_ENV === 'development',
 	},
 }
 

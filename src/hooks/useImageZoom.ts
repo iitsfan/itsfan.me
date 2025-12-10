@@ -1,24 +1,25 @@
+import type { Zoom } from 'medium-zoom'
 import mediumZoom from 'medium-zoom'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
-interface UseImageZoomOptions {
-	selector?: string
-}
+export function useImageZoom<T extends HTMLImageElement>({
+	enabled = true,
+}: { enabled?: boolean } = {}) {
+	const imageRef = useRef<T>(null)
+	const zoomRef = useRef<Zoom | null>(null)
 
-export function useImageZoom({
-	selector = '.markdown img',
-}: UseImageZoomOptions = {}) {
 	useEffect(() => {
-		if (typeof window === 'undefined') return
+		if (!imageRef.current || !enabled) return
 
-		const images = document.querySelectorAll(selector) as NodeListOf<HTMLImageElement>
-
-		if (images.length === 0) return
-
-		const zoom = mediumZoom(images)
+		zoomRef.current = mediumZoom(imageRef.current, {
+			margin: 48,
+		})
 
 		return () => {
-			zoom.detach()
+			zoomRef.current?.detach()
+			zoomRef.current = null
 		}
-	}, [selector])
+	}, [enabled])
+
+	return imageRef
 }
