@@ -10,11 +10,8 @@ export const transformerCopyButton = (): ShikiTransformer => ({
 				type: 'button',
 				className: 'copy',
 				title: 'Copy to clipboard',
-				onclick: `
-            navigator.clipboard.writeText(this.previousSibling.textContent),
-            this.className='copied',
-            this.title='Copied!',
-            setTimeout(()=>this.className='copy',5000)`.replace(/\s+/g, ''),
+				'data-copy': 'code',
+				'aria-label': 'Copy code',
 			},
 			children: [
 				{
