@@ -1,5 +1,6 @@
 import type { Conversation } from '@grammyjs/conversations'
 import type { BotContext } from '@/telegram/shared'
+import type { ImageMeta } from '@/types/moment'
 import { InlineKeyboard } from 'grammy'
 import { ERROR_MESSAGES, formatMomentDetails, MOMENT_LIMITS, parseTagsInput, saveTelegramImageToR2 } from '@/telegram/shared'
 
@@ -34,7 +35,7 @@ export async function createMomentConversation(
 		return
 	}
 
-	const images: string[] = []
+	const images: ImageMeta[] = []
 
 	await ctx.reply(
 		[

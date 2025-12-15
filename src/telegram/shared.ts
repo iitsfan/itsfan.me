@@ -1,13 +1,14 @@
 import type { ConversationFlavor } from '@grammyjs/conversations'
 import type { Context, SessionFlavor } from 'grammy'
 import type { PhotoSize } from 'grammy/types'
-import type { Moment } from '@/types/moment'
+import type { ImageMeta, Moment } from '@/types/moment'
 import path from 'node:path'
 import dayjs from 'dayjs'
 import timezone from 'dayjs/plugin/timezone'
 import utc from 'dayjs/plugin/utc'
 import { InlineKeyboard } from 'grammy'
 import { uploadObjectToR2 } from '@/lib/cloudflare-r2'
+import { generateThumbhash } from '@/lib/thumbhashUtils'
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
@@ -37,7 +38,7 @@ export const ERROR_MESSAGES = {
 const ALLOWED_IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp']
 
 // Image upload
-export async function saveTelegramImageToR2(ctx: BotContext, image: PhotoSize): Promise<string> {
+export async function saveTelegramImageToR2(ctx: BotContext, image: PhotoSize): Promise<ImageMeta> {
 	const file = await ctx.api.getFile(image.file_id)
 
 	if (!file.file_path) {
@@ -66,6 +67,7 @@ export async function saveTelegramImageToR2(ctx: BotContext, image: PhotoSize): 
 		contentType = getContentTypeFromExtension(extension)
 	}
 
+	// Upload to R2
 	const { publicUrl } = await uploadObjectToR2({
 		body,
 		contentType,
@@ -74,7 +76,15 @@ export async function saveTelegramImageToR2(ctx: BotContext, image: PhotoSize): 
 		filenameHint: image.file_unique_id,
 	})
 
-	return publicUrl
+	// Generate thumbhash
+	const thumbhashResult = await generateThumbhash(body)
+
+	return {
+		url: publicUrl,
+		width: thumbhashResult.width,
+		height: thumbhashResult.height,
+		blurDataURL: thumbhashResult.blurDataURL,
+	}
 }
 
 function getContentTypeFromExtension(ext: string): string {

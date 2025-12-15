@@ -36,7 +36,6 @@ export function OptimizeImage({
 				'relative mx-auto my-6 block transform-gpu cursor-zoom-in overflow-hidden rounded-lg shadow-sm',
 				wrapperClassName,
 			)}
-			style={{ aspectRatio: `${width} / ${height}` }}
 		>
 			{blurDataURL && !isLoaded && (
 				<div

@@ -1,7 +1,7 @@
 import type { Conversation } from '@grammyjs/conversations'
 import type { UpdateMomentInput } from '@/lib/moments.schema'
 import type { BotContext } from '@/telegram/shared'
-import type { Moment } from '@/types/moment'
+import type { ImageMeta, Moment } from '@/types/moment'
 import { InlineKeyboard } from 'grammy'
 import { formatMomentDetails, MOMENT_LIMITS, parseTagsInput, saveTelegramImageToR2 } from '@/telegram/shared'
 
@@ -63,7 +63,7 @@ export async function editMomentConversation(
 		].join('\n'),
 	)
 
-	const newImages: string[] = []
+	const newImages: ImageMeta[] = []
 	let shouldRemoveImages = false
 
 	while (newImages.length < MOMENT_LIMITS.MAX_IMAGES) {

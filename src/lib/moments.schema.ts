@@ -1,6 +1,16 @@
 import { z } from 'zod'
 
 /**
+ * Image metadata schema
+ */
+export const imageMetaSchema = z.object({
+	url: z.string().url('Image URL must be valid'),
+	width: z.number().int().positive(),
+	height: z.number().int().positive(),
+	blurDataURL: z.string().optional(),
+})
+
+/**
  * Moment creation validation schema
  */
 export const createMomentSchema = z.object({
@@ -9,7 +19,7 @@ export const createMomentSchema = z.object({
 		.min(1, 'Content cannot be empty')
 		.max(500, 'Content cannot exceed 500 characters'),
 	images: z
-		.array(z.string().url('Image must be a valid URL'))
+		.array(imageMetaSchema)
 		.max(9, 'Maximum 9 images allowed')
 		.optional(),
 	tags: z
@@ -28,7 +38,7 @@ export const updateMomentSchema = z.object({
 		.max(500, 'Content cannot exceed 500 characters')
 		.optional(),
 	images: z
-		.array(z.string().url('Image must be a valid URL'))
+		.array(imageMetaSchema)
 		.max(9, 'Maximum 9 images allowed')
 		.optional(),
 	tags: z

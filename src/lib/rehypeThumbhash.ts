@@ -2,11 +2,9 @@ import type { Root } from 'hast'
 import crypto from 'node:crypto'
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import sharp from 'sharp'
-import { rgbaToThumbHash, thumbHashToDataURL } from 'thumbhash'
 import { visit } from 'unist-util-visit'
+import { generateThumbhash, loadImageBuffer } from './thumbhashUtils'
 
-const MAX_THUMB_SIZE = 64
 const CACHE_DIR = '.next/cache/thumbhash'
 
 interface ThumbhashCache {
@@ -56,9 +54,8 @@ export function rehypeThumbhashPlaceholder() {
 }
 
 async function getPlaceholderMeta(src: string, cache: ThumbhashCache) {
-	const normalizedSrc = src.replaceAll('%20', ' ')
 	try {
-		const buffer = await loadImageBuffer(normalizedSrc)
+		const buffer = await loadImageBuffer(src)
 
 		// Check cache by image content hash
 		const hash = crypto.createHash('sha256').update(buffer).digest('hex').slice(0, 16)
@@ -66,49 +63,21 @@ async function getPlaceholderMeta(src: string, cache: ThumbhashCache) {
 			return { ...cache[hash], hash, fromCache: true }
 		}
 
-		const image = sharp(buffer)
-		const meta = await image.metadata()
-
-		const { data, info } = await image
-			.resize({
-				width: MAX_THUMB_SIZE,
-				height: MAX_THUMB_SIZE,
-				fit: 'inside',
-				withoutEnlargement: true,
-			})
-			.ensureAlpha()
-			.raw()
-			.toBuffer({ resolveWithObject: true })
-
-		const thumbHash = rgbaToThumbHash(info.width, info.height, data)
-		const blurDataURL = thumbHashToDataURL(thumbHash)
+		// Use shared thumbhash generation function
+		const result = await generateThumbhash(buffer)
 
 		return {
-			width: meta.width ?? info.width,
-			height: meta.height ?? info.height,
-			blurDataURL,
+			width: result.width,
+			height: result.height,
+			blurDataURL: result.blurDataURL,
 			hash,
 			fromCache: false,
 		}
 	}
 	catch (error) {
-		console.warn(`[rehype-thumbhash] Failed to generate placeholder for ${normalizedSrc}:`, error)
+		console.warn(`[rehype-thumbhash] Failed to generate placeholder for ${src}:`, error)
 		return undefined
 	}
-}
-
-async function loadImageBuffer(src: string) {
-	if (/^https?:\/\//.test(src)) {
-		const res = await fetch(src)
-		if (!res.ok) {
-			throw new Error(`Failed to fetch remote image: ${src} (${res.status})`)
-		}
-		const arrayBuffer = await res.arrayBuffer()
-		return Buffer.from(arrayBuffer)
-	}
-
-	const normalized = src.startsWith('/') ? src.slice(1) : src
-	return fs.readFile(path.join(process.cwd(), 'public', normalized))
 }
 
 async function loadCache(): Promise<ThumbhashCache> {

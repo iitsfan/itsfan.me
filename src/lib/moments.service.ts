@@ -1,6 +1,6 @@
 import type { Moment as PrismaMoment } from '@/generated/prisma'
 import type { CreateMomentInput, GetMomentsQuery, UpdateMomentInput } from '@/lib/moments.schema'
-import type { Moment } from '@/types/moment'
+import type { ImageMeta, Moment } from '@/types/moment'
 import { Prisma } from '@/generated/prisma'
 import { prisma } from '@/lib/prisma'
 
@@ -8,7 +8,7 @@ function fromPrisma(prismaMoment: PrismaMoment): Moment {
 	return {
 		id: prismaMoment.id,
 		content: prismaMoment.content,
-		images: Array.isArray(prismaMoment.images) ? prismaMoment.images as string[] : null,
+		images: Array.isArray(prismaMoment.images) ? prismaMoment.images as unknown as ImageMeta[] : null,
 		tags: Array.isArray(prismaMoment.tags) ? prismaMoment.tags as string[] : null,
 		createdAt: prismaMoment.createdAt,
 		updatedAt: prismaMoment.updatedAt,

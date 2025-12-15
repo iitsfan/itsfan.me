@@ -1,10 +1,20 @@
 /**
+ * Image metadata with thumbhash placeholder
+ */
+export interface ImageMeta {
+	url: string
+	width: number
+	height: number
+	blurDataURL?: string
+}
+
+/**
  * Moment data type definitions
  */
 export interface Moment {
 	id: string
 	content: string
-	images: string[] | null
+	images: ImageMeta[] | null
 	tags: string[] | null
 	createdAt: Date
 	updatedAt: Date

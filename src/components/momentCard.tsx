@@ -1,11 +1,10 @@
 'use client'
 
 import type { Moment } from '@/types/moment'
-import mediumZoom from 'medium-zoom'
 import { useFormatter, useTranslations } from 'next-intl'
-import Image from 'next/image'
-import { useEffect, useMemo, useRef } from 'react'
+import { useMemo } from 'react'
 import IconBadge from '@/components/ui/IconBadge'
+import { OptimizeImage } from '@/components/ui/OptimizeImage'
 
 interface MomentCardProps {
 	item: Moment
@@ -13,26 +12,10 @@ interface MomentCardProps {
 
 export default function MomentCard({ item }: MomentCardProps) {
 	const t = useTranslations('moments.list')
-	const imagesContainerRef = useRef<HTMLDivElement | null>(null)
 	const formatter = useFormatter()
 	const relativeTimeLabel = useMemo(() => {
 		return formatter.relativeTime(new Date(item.createdAt), new Date())
 	}, [formatter, item.createdAt])
-
-	useEffect(() => {
-		if (!imagesContainerRef.current)
-			return
-
-		const images = imagesContainerRef.current.querySelectorAll('img')
-		if (images.length === 0)
-			return
-
-		const zoom = mediumZoom(images)
-
-		return () => {
-			zoom.detach()
-		}
-	}, [item.images])
 
 	return (
 		<div className="rounded-xl border border-(--border-subtle) bg-(--surface-card) p-4 shadow-sm transition-colors duration-300">
@@ -53,15 +36,16 @@ export default function MomentCard({ item }: MomentCardProps) {
 
 				{item.images && item.images.length > 0 && (
 					<div className="mt-3 overflow-x-auto">
-						<div ref={imagesContainerRef} className="flex gap-2">
+						<div className="flex gap-2">
 							{item.images.map(image => (
-								<Image
-									key={image}
-									className="rounded-lg"
-									src={image}
-									width={256}
-									height={256}
+								<OptimizeImage
+									key={image.url}
+									src={image.url}
+									width={image.width}
+									height={image.height}
+									blurDataURL={image.blurDataURL}
 									alt={t('image alt')}
+									wrapperClassName="!mx-0 my-0 w-64 shrink-0"
 								/>
 							))}
 						</div>
