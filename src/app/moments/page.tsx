@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import PageTitle from '@/components/layouts/pageTitle'
-import MomentsList from '@/components/momentsList'
+import MomentsList from '@/components/MomentsList'
 import { siteConfig } from '@/lib/site'
 
 export async function generateMetadata(): Promise<Metadata> {
