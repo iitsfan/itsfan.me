@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import LanguageSwitch from '@/components/LanguageSwitch'
-import ToggleThemeButton from '@/components/ToggleThemeButton'
+import ToggleThemeButton from '@/components/toggleThemeButton'
 
 export default function Footer() {
 	const t = useTranslations('aria label')

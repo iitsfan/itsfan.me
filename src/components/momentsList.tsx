@@ -3,7 +3,7 @@
 import type { Moment, MomentListResponse } from '@/types/moment'
 import { useTranslations } from 'next-intl'
 import { useCallback } from 'react'
-import MomentCard from '@/components/MomentCard'
+import MomentCard from '@/components/momentCard'
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
 import { cn } from '@/lib/utils'
 
