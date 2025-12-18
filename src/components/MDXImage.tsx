@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { useImageZoom } from '@/hooks/useImageZoom'
 import { cn } from '@/lib/utils'
 
-interface OptimizeImageProps extends Omit<ComponentProps<typeof Image>, 'src' | 'alt' | 'placeholder'> {
+interface MDXImageProps extends Omit<ComponentProps<typeof Image>, 'src' | 'alt' | 'placeholder'> {
 	src?: string
 	alt?: string
 	blurDataURL?: string
@@ -15,7 +15,7 @@ interface OptimizeImageProps extends Omit<ComponentProps<typeof Image>, 'src' | 
 	wrapperClassName?: string
 }
 
-export function OptimizeImage({
+export function MDXImage({
 	src,
 	alt = '',
 	className = '',
@@ -24,7 +24,7 @@ export function OptimizeImage({
 	blurDataURL,
 	wrapperClassName,
 	...rest
-}: OptimizeImageProps) {
+}: MDXImageProps) {
 	const [isLoaded, setIsLoaded] = useState(false)
 	const imageRef = useImageZoom<HTMLImageElement>()
 

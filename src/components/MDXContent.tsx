@@ -3,7 +3,7 @@
 import type { ComponentType } from 'react'
 import { Fragment, useMemo } from 'react'
 import { jsx, jsxs } from 'react/jsx-runtime'
-import { OptimizeImage } from '@/components/ui/OptimizeImage'
+import { MDXImage } from '@/components/MDXImage'
 import { useCodeCopy } from '@/hooks/useCodeCopy'
 
 interface MDXContentProps {
@@ -22,7 +22,7 @@ function useMDXComponent(code: string) {
 }
 
 const defaultComponents: Record<string, ComponentType<any>> = {
-	img: OptimizeImage,
+	img: MDXImage,
 }
 
 export function MDXContent({ code, components, className }: MDXContentProps) {
