@@ -63,7 +63,7 @@ export default function Posts() {
 
 					<div className="relative -mt-4 space-y-4">
 						{groupedPosts[year].map(post => (
-							<div key={post.slug} className="flex items-center justify-between text-base text-(--text-secondary)">
+							<div key={post.slug} className="flex items-baseline justify-between text-base text-(--text-secondary)">
 								<Link
 									href={`/posts/${post.slug}`}
 									className="cursor-pointer font-semibold text-(--text-primary) transition-colors duration-300 hover:text-(--accent-strong)"
