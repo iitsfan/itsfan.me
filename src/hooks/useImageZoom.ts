@@ -12,7 +12,7 @@ export function useImageZoom<T extends HTMLImageElement>({
 		if (!imageRef.current || !enabled) return
 
 		zoomRef.current = mediumZoom(imageRef.current, {
-			margin: 48,
+			margin: 24,
 		})
 
 		return () => {
