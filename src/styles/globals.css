@@ -2,6 +2,7 @@
 @import './bprogress.css';
 @import './markdown.css';
 @import './calendar-tooltip.css';
+@import 'photoswipe/style.css';
 @plugin '@egoist/tailwindcss-icons';
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 

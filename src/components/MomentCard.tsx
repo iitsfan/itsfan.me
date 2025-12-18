@@ -3,8 +3,8 @@
 import type { Moment } from '@/types/moment'
 import { useFormatter, useTranslations } from 'next-intl'
 import { useMemo } from 'react'
+import { GalleryImage } from '@/components/GalleryImage'
 import IconBadge from '@/components/ui/IconBadge'
-import { OptimizeImage } from '@/components/ui/OptimizeImage'
 
 interface MomentCardProps {
 	item: Moment
@@ -35,21 +35,10 @@ export default function MomentCard({ item }: MomentCardProps) {
 				</p>
 
 				{item.images && item.images.length > 0 && (
-					<div className="mt-3 overflow-x-auto">
-						<div className="flex gap-2">
-							{item.images.map(image => (
-								<OptimizeImage
-									key={image.url}
-									src={image.url}
-									width={image.width}
-									height={image.height}
-									blurDataURL={image.blurDataURL}
-									alt={t('image alt')}
-									wrapperClassName="!mx-0 my-0 w-64 shrink-0"
-								/>
-							))}
-						</div>
-					</div>
+					<GalleryImage
+						images={item.images}
+						alt={t('image alt')}
+					/>
 				)}
 			</div>
 			<div className="mt-2 flex flex-wrap items-center gap-3">
