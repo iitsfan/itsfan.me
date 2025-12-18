@@ -35,7 +35,7 @@ function GalleryImageItem({
 		>
 			{image.blurDataURL && !isLoaded && (
 				<div
-					className="absolute inset-0 opacity-70 hover:opacity-100"
+					className="absolute inset-0 opacity-100 dark:opacity-70 dark:hover:opacity-100"
 					style={{
 						backgroundImage: `url(${image.blurDataURL})`,
 						backgroundSize: 'cover',
@@ -51,8 +51,8 @@ function GalleryImageItem({
 				height={image.height}
 				loading="lazy"
 				className={cn(
-					'relative size-64 object-cover transition-[transform,opacity,filter] duration-300 ease-[cubic-bezier(0.2,0,0.2,1),ease-in-out,ease-in-out] hover:opacity-100',
-					isLoaded ? 'blur-0 opacity-80' : 'opacity-0 blur-lg',
+					'relative size-64 object-cover transition-[transform,opacity,filter] duration-300 ease-[cubic-bezier(0.2,0,0.2,1),ease-in-out,ease-in-out] dark:hover:opacity-100',
+					isLoaded ? 'blur-0 opacity-100 dark:opacity-80' : 'opacity-0 blur-lg',
 				)}
 				onLoad={() => {
 					requestAnimationFrame(() => setIsLoaded(true))

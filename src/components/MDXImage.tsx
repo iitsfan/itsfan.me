@@ -39,7 +39,7 @@ export function MDXImage({
 		>
 			{blurDataURL && !isLoaded && (
 				<div
-					className="absolute inset-0 opacity-70 hover:opacity-100"
+					className="absolute inset-0 opacity-100 dark:opacity-70 dark:hover:opacity-100"
 					style={{
 						backgroundImage: `url(${blurDataURL})`,
 						backgroundSize: 'cover',
@@ -56,9 +56,9 @@ export function MDXImage({
 				height={height}
 				loading="lazy"
 				className={cn(
-					'relative size-full rounded-lg object-cover transition-[transform,opacity,filter] duration-300 ease-[cubic-bezier(0.2,0,0.2,1),ease-in-out,ease-in-out] hover:opacity-100',
+					'relative size-full rounded-lg object-cover transition-[transform,opacity,filter] duration-300 ease-[cubic-bezier(0.2,0,0.2,1),ease-in-out,ease-in-out] dark:hover:opacity-100',
 					'[&.medium-zoom-image--opened]:blur-0 [&.medium-zoom-image--opened]:opacity-100',
-					isLoaded ? 'blur-0 opacity-70' : 'opacity-0 blur-lg',
+					isLoaded ? 'blur-0 opacity-100 dark:opacity-70' : 'opacity-0 blur-lg',
 					className,
 				)}
 				onLoad={() => {

@@ -13,7 +13,7 @@ interface IconBadgeProps {
 const baseClasses = 'flex items-center justify-center gap-1 text-sm transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--focus-ring) focus-visible:ring-offset-2 focus-visible:ring-offset-(--bg-primary)'
 
 const variantStyles: Record<IconBadgeVariant, string> = {
-	tech: 'rounded-lg border border-(--border-subtle) bg-(--surface-muted) px-2.5 py-1 font-semibold select-none text-(--text-secondary) hover:border-(--accent-strong)/60 hover:text-(--text-primary) hover:bg-(--surface-card) hover:shadow-sm',
+	tech: 'rounded-md border border-(--border-subtle)/40 bg-(--surface-muted) px-2.5 py-1 font-semibold select-none text-(--text-secondary) transition-all duration-200 hover:border-(--border-subtle) hover:text-(--text-primary) hover:shadow-sm',
 	social: 'border-b-2 border-dashed border-b-(--accent) font-semibold text-(--accent) hover:border-b-(--accent-strong) hover:text-(--accent-strong)',
 	moment: 'font-semibold text-(--accent-strong) hover:bg-(--accent-soft)/25 px-2 py-0.5 rounded',
 	tag: 'inline-flex cursor-default items-center justify-start gap-0 font-medium text-(--accent) transition-colors duration-200 hover:text-(--accent-strong)',

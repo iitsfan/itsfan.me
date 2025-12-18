@@ -114,7 +114,7 @@
     }
 
     pre {
-        @apply bg-(--surface-muted) border border-(--border-subtle) rounded-xl overflow-auto my-6 p-4 text-(--text-secondary) shadow-sm text-sm;
+        @apply bg-(--bg-secondary) border border-(--border-subtle) rounded-xl overflow-auto my-6 p-4 text-(--text-secondary) text-[13px] leading-5;
 
         &::-webkit-scrollbar-track,
         &::-webkit-scrollbar-corner {
@@ -127,7 +127,7 @@
     }
 
     blockquote {
-        @apply relative my-6 rounded-r-lg border-l-3 border-l-(--accent) pl-5 pr-3 py-2 text-(--text-secondary) bg-(--surface-muted)/30 italic;
+        @apply relative my-6 rounded-r-lg border-l-3 border-l-(--accent) pl-5 pr-3 py-3 text-(--text-secondary) bg-(--surface-muted);
     }
 
     video {
@@ -167,7 +167,7 @@
         @apply my-6 relative;
 
         [data-rehype-pretty-code-title] {
-            @apply px-4 py-2 text-sm font-semibold text-(--text-primary) bg-(--surface-card) border border-(--border-subtle) rounded-t-lg border-b-0 m-0 shadow-sm;
+            @apply px-3 py-2 text-[13px] font-semibold text-(--text-primary) bg-(--surface-muted) border border-(--border-subtle) rounded-t-lg border-b m-0;
         }
 
         &:has([data-rehype-pretty-code-title]) pre {
@@ -179,13 +179,13 @@
         }
 
         code {
-            @apply text-sm font-mono grid;
+            @apply text-[13px] font-mono grid;
 
             span[data-line] {
                 @apply px-4 py-0.5 border-l-2 border-l-transparent;
 
                 &.highlighted {
-                    @apply bg-(--accent-soft) border-l-(--accent-strong) border-l-2;
+                    @apply bg-(--accent-soft)/50 border-l-(--accent-strong) border-l-2;
                 }
 
                 &.diff.add {

@@ -70,8 +70,8 @@ export default defineConfig({
 				rehypePrettyCode,
 				{
 					theme: {
-						dark: 'one-dark-pro',
-						light: 'one-light',
+						dark: 'plastic',
+						light: 'github-light',
 					},
 					keepBackground: false,
 					transformers: [

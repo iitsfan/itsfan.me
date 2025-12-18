@@ -41,14 +41,14 @@ export default function Friends() {
 				{friendsData.links.map(link => (
 					<a
 						key={link.title}
-						className="mt-4 flex items-center gap-3 rounded-xl border border-(--border-subtle) bg-(--surface-card) px-4 py-3 shadow-sm transition-all duration-300 will-change-transform hover:-translate-y-1 hover:border-(--accent-strong)/60 hover:bg-(--surface-muted) hover:shadow-md focus-visible:ring-2 focus-visible:ring-(--focus-ring) focus-visible:ring-offset-2 focus-visible:ring-offset-(--bg-primary) focus-visible:outline-none sm:mt-0"
+						className="group mt-4 flex items-center gap-4 rounded-xl border border-(--border-subtle)/30 bg-linear-to-br from-(--surface-card) to-(--surface-muted)/50 px-4 py-3 shadow-md transition-all duration-300 will-change-transform hover:-translate-y-1 hover:shadow-xl hover:from-(--surface-card) hover:to-(--surface-card) focus-visible:ring-2 focus-visible:ring-(--focus-ring) focus-visible:ring-offset-2 focus-visible:ring-offset-(--bg-primary) focus-visible:outline-none sm:mt-0"
 						href={link.website || '#'}
 						target={link.website ? '_blank' : undefined}
 						rel={link.website ? 'noopener noreferrer' : undefined}
 					>
 						<div>
 							<Image
-								className="rounded-md"
+								className="rounded-lg bg-(--surface-muted)"
 								src={link.image}
 								alt={link.title}
 								width={56}
@@ -56,11 +56,11 @@ export default function Friends() {
 								loading="lazy"
 							/>
 						</div>
-						<div className="flex flex-1 flex-col gap-1">
-							<h2 className="font-medium text-(--text-primary)">
+						<div className="flex flex-1 flex-col gap-0.5">
+							<h2 className="font-semibold text-(--text-primary) transition-colors duration-300 group-hover:text-(--accent)">
 								{link.title}
 							</h2>
-							<p className="text-xs text-(--text-secondary) sm:text-sm">
+							<p className="line-clamp-1 text-xs text-(--text-secondary) sm:text-sm">
 								{link.description}
 							</p>
 						</div>
